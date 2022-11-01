@@ -1,6 +1,6 @@
 ﻿  Maim.cpp
-c:\users\user\desktop\progrmming_fundamental\game_tutorial\tutorial\tutorial\maim.cpp(39): warning C4305: 'argument': truncation from 'double' to 'float'
-c:\users\user\desktop\progrmming_fundamental\game_tutorial\tutorial\tutorial\maim.cpp(41): warning C4305: 'argument': truncation from 'double' to 'float'
-c:\users\user\desktop\progrmming_fundamental\game_tutorial\tutorial\tutorial\maim.cpp(43): warning C4305: 'argument': truncation from 'double' to 'float'
-c:\users\user\desktop\progrmming_fundamental\game_tutorial\tutorial\tutorial\maim.cpp(45): warning C4305: 'argument': truncation from 'double' to 'float'
-  tutorial.vcxproj -> C:\Users\User\Desktop\progrmming_fundamental\game_tutorial\tutorial\Debug\tutorial.exe
+c:\users\user\desktop\game_tutorial\tutorial\tutorial\maim.cpp(39): warning C4305: 'argument': truncation from 'double' to 'float'
+c:\users\user\desktop\game_tutorial\tutorial\tutorial\maim.cpp(41): warning C4305: 'argument': truncation from 'double' to 'float'
+c:\users\user\desktop\game_tutorial\tutorial\tutorial\maim.cpp(43): warning C4305: 'argument': truncation from 'double' to 'float'
+c:\users\user\desktop\game_tutorial\tutorial\tutorial\maim.cpp(45): warning C4305: 'argument': truncation from 'double' to 'float'
+  tutorial.vcxproj -> C:\Users\User\Desktop\game_tutorial\tutorial\Debug\tutorial.exe
