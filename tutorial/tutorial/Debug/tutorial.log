@@ -1,1 +1,21 @@
-﻿  tutorial.vcxproj -> C:\Users\User\Desktop\game_tutorial\tutorial\Debug\tutorial.exe
+﻿  Main.cpp
+c:\users\user\desktop\game_tutorial\tutorial\tutorial\main.cpp(34): warning C4305: 'argument': truncation from 'double' to 'float'
+c:\users\user\desktop\game_tutorial\tutorial\tutorial\main.cpp(56): warning C4305: 'argument': truncation from 'double' to 'float'
+c:\users\user\desktop\game_tutorial\tutorial\tutorial\main.cpp(59): warning C4305: 'argument': truncation from 'double' to 'float'
+c:\users\user\desktop\game_tutorial\tutorial\tutorial\main.cpp(62): warning C4305: 'argument': truncation from 'double' to 'float'
+c:\users\user\desktop\game_tutorial\tutorial\tutorial\main.cpp(65): warning C4305: 'argument': truncation from 'double' to 'float'
+c:\users\user\desktop\game_tutorial\tutorial\tutorial\main.cpp(69): warning C4305: 'argument': truncation from 'double' to 'float'
+c:\users\user\desktop\game_tutorial\tutorial\tutorial\main.cpp(71): warning C4305: 'argument': truncation from 'double' to 'float'
+c:\users\user\desktop\game_tutorial\tutorial\tutorial\main.cpp(73): warning C4305: 'argument': truncation from 'double' to 'float'
+c:\users\user\desktop\game_tutorial\tutorial\tutorial\main.cpp(75): warning C4305: 'argument': truncation from 'double' to 'float'
+c:\users\user\desktop\game_tutorial\tutorial\tutorial\main.cpp(79): warning C4244: 'initializing': conversion from 'T' to 'int', possible loss of data
+          with
+          [
+              T=float
+          ]
+c:\users\user\desktop\game_tutorial\tutorial\tutorial\main.cpp(80): warning C4244: 'initializing': conversion from 'T' to 'int', possible loss of data
+          with
+          [
+              T=float
+          ]
+  tutorial.vcxproj -> C:\Users\User\Desktop\game_tutorial\tutorial\Debug\tutorial.exe
