@@ -1,0 +1,4 @@
+﻿  Main.cpp
+c:\users\user\desktop\game_tutorial\test_oop\test_oop\main.cpp(12): warning C4477: 'printf' : format string '%s' requires an argument of type 'char *', but variadic argument 1 has type 'std::string'
+c:\users\user\desktop\game_tutorial\test_oop\test_oop\main.cpp(13): warning C4477: 'printf' : format string '%s' requires an argument of type 'char *', but variadic argument 1 has type 'std::string'
+  test_oop.vcxproj -> C:\Users\User\Desktop\game_tutorial\test_oop\Debug\test_oop.exe
