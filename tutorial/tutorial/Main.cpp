@@ -7,32 +7,54 @@ int main()
 {
 	sf::RenderWindow window(sf::VideoMode(900, 700), "fixed it felix game");
 
+	//felix
 	sf::Texture pngfelix;
-	pngfelix.loadFromFile("felixnormalleft.png");
+	pngfelix.loadFromFile("./image/right.png");
 	sf::Sprite felix;
 	felix.setTexture(pngfelix);
 	felix.setScale(2, 2);
 	felix.setPosition(190,100);
 
+	//building
 	sf::Texture pngbuilding;
-	pngbuilding.loadFromFile("building.png");
+	pngbuilding.loadFromFile("./image/building/building.png");
 	sf::Sprite building;
 	building.setTexture(pngbuilding);
 	building.setScale(2,2);
 	building.setPosition(151, -1366);
 
+	//floor
 	sf::Texture pnglongbush;
-	pnglongbush.loadFromFile("floor.png");
+	pnglongbush.loadFromFile("./image/floor.png");
 	sf::Sprite longbush;
 	longbush.setTexture(pnglongbush);
 	longbush.setPosition(0,640);
 
+	//green window
 	sf::Texture pnggreenwin;
-	pnggreenwin.loadFromFile("greenwindow.png");
-	sf::Sprite greenwin;
-	greenwin.setTexture(pnggreenwin);
-	greenwin.setScale(1.4, 1.4);
-	greenwin.setPosition(207, 24);
+	int x_greenwin = 203;
+	pnggreenwin.loadFromFile("./image/window/greenwindow.png");
+	sf::Sprite greenwin[5];
+	for (int i = 0; i < 5; i++)
+	{
+		greenwin[i].setTexture(pnggreenwin);
+		greenwin[i].setScale(1.4, 1.4);
+		greenwin[i].setPosition(x_greenwin, 24);
+		x_greenwin += 105;
+	}
+
+	//broken window
+	struct brokenwindow
+	{
+		int x;
+		int y;
+		int status;
+	}brokewin;
+	sf::Texture pngbrokenwin;
+	pngbrokenwin.loadFromFile("./");
+
+	
+
 
 	
 	while (window.isOpen())
@@ -64,7 +86,8 @@ int main()
 			if (position.x < 591)
 				felix.move(0.1, 0.00);
 
-		sf::Vector2f position_green = greenwin.getPosition();
+
+		/*sf::Vector2f position_green = greenwin.getPosition();
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
 			greenwin.move(-0.10, 0.00);
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
@@ -74,21 +97,24 @@ int main()
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
 			greenwin.move(0.1, 0.00);
 
-		
-		
 		int x = position_green.x;
 		int y = position_green.y;
-		printf("(%d,%d)", x, y);
+		printf("(%d,%d)", x, y);*/
+		
+
+		
+		
 		
 		
 		window.clear();
 
+		
 		window.draw(longbush);
 		window.draw(building);
-		
-		window.draw(greenwin);
-		
+		for(int i=0;i<5;i++)
+			window.draw(greenwin[i]);
 		window.draw(felix);
+
 
 		window.display();
 	}
@@ -96,7 +122,3 @@ int main()
 	return 0;
 }
 
-void felix_moveleft()
-{
-
-}

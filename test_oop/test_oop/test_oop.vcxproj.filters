@@ -15,7 +15,10 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="codebuity.cpp">
+    <ClCompile Include="example_rec.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="bubu.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
