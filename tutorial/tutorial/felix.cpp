@@ -1,62 +1,96 @@
 #include "felix.h"
-
-#include <iostream>
-void Character::Move() {
+#include <SFML/Graphics.hpp>
 
 
+felix::felix()
+{
+	pngsprite.loadFromFile("./image/sprite.png");
+	sprite.setTexture(pngsprite);
+	sprite.setScale(0.7f, 0.7f);
 
-	//Up
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) {
-		SheetX = 0;
-		SheetY = 192;
-		y_pos = y_pos - 1;
-		Up = true;
+	spriteSizeX = pngsprite.getSize().x / 4;
+	spriteSizeY = pngsprite.getSize().y / 4;
 
-	}
-	//Down
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) {
-		SheetX = 0;
-		SheetY = 48;
-		y_pos = y_pos + 1;
-		Down = false;
-
-	}
-	//Left
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
-		SheetX = 0;
-		SheetY = 480;
-		x_pos = x_pos - 1;
-		Left = true;
-
-	}
-	//Right
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
-		SheetX = 0;
-		SheetY = 339;
-		x_pos = x_pos + 1;
-		Right = true;
-
-	}
-	//Up Right
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up) and sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
-		SheetX = 334;
-		SheetY = 490;
-
-	}
-	//Up Left
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up) and sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
-		SheetX = 333;
-		SheetY = 340;
-	}
-	//Down Right
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down) and sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
-		SheetX = 334;
-		SheetY = 48;
-	}
-	//Down Left
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down) and sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
-		SheetX = 334;
-		SheetY = 191;
-	}
+	sprite.setTextureRect(sf::IntRect(0, 0, spriteSizeX, spriteSizeY));
 
 }
+
+
+void felix::move()
+{
+	sf::Vector2f position = sprite.getPosition();
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
+		if (position.x > 170.f)
+		{
+			turnleft = true;
+			sprite.move(-speed, 0.00);
+		}
+
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
+		if (position.y < 520.f)
+		{
+			godown = true;
+			sprite.move(0.00, speed);
+		}
+
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
+		if (position.y > 0)
+		{
+			goup = true;
+			sprite.move(0.00, -speed);
+		}
+
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
+		if (position.x < 715)
+		{
+			turnright = true;
+			sprite.move(speed, 0.00);
+
+		}
+}
+
+
+
+
+void felix::set_position(int x, int y)
+{
+	sprite.setPosition(x, y);
+}
+
+
+void felix::reset_movestate()
+{
+	speed = 0.25;
+	turnleft = false;
+	turnright = false;
+	goup = false;
+	godown = false;
+}
+	
+
+void felix::animation()
+{
+	if (turnright)
+		sprite.setTextureRect(sf::IntRect((spriteSizeX - 1) * animationFrame, (spriteSizeY * 1) + 4, spriteSizeX, spriteSizeY));
+	if (turnleft)
+		sprite.setTextureRect(sf::IntRect((spriteSizeX - 1) * animationFrame, (spriteSizeY * 2) + 3, spriteSizeX, spriteSizeY));
+	if (goup)
+		sprite.setTextureRect(sf::IntRect(spriteSizeX * animationFrame, spriteSizeY * 3, spriteSizeX, spriteSizeY));
+	if (godown)
+		sprite.setTextureRect(sf::IntRect(spriteSizeX * animationFrame, spriteSizeY * 0, spriteSizeX, spriteSizeY));
+
+	animationFrame++;
+
+	if (animationFrame >= 4) {
+		animationFrame = 0;
+	}
+}
+
+
+void felix::draw(sf::RenderWindow& i_window)
+{
+	i_window.draw(sprite);
+}
+
+
+
