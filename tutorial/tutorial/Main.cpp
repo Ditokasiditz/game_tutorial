@@ -4,7 +4,8 @@
 #include <SFML/Graphics.hpp>
 
 
-double speed = 0.15;
+
+double speed = 0.2;
 short maxwin = 15;
 
 int main()
@@ -12,22 +13,22 @@ int main()
 	sf::RenderWindow window(sf::VideoMode(900, 700), "fixed it felix game");
 
 
-	double msec100, msec50, msec25;
-	sf::Clock clock1sec, clock100msec, clock50msec, clock25msec;
-	sf::Time time1sec, time100msec, time50msec, time25msec;
-	clock1sec.restart();
-	clock100msec.restart();
-	clock50msec.restart();
-	clock25msec.restart();
-
+	
 
 	//felix
 	sf::Texture pngfelix;
-	pngfelix.loadFromFile("./image/right.png");
+	pngfelix.loadFromFile("./image/sprite.png");
 	sf::Sprite felix;
 	felix.setTexture(pngfelix);
-	felix.setScale(2, 2);
+	felix.setScale(0.7f, 0.7f);
 	felix.setPosition(250,300);
+
+	float spriteSizeX = pngfelix.getSize().x / 4;
+	float spriteSizeY = pngfelix.getSize().y / 4;
+	int animationFrame = 0;
+
+	felix.setTextureRect(sf::IntRect(0, 0, spriteSizeX, spriteSizeY));
+
 
 	//building
 	sf::Texture pngbuilding;
@@ -86,15 +87,26 @@ int main()
 	halfwin.setPosition(500, 500);
 
 
-
-
-
+	//timer
+	double msec100, msec50, msec25;
+	sf::Clock clock1sec, clock100msec, clock50msec, clock25msec;
+	sf::Time time1sec, time100msec, time50msec, time25msec;
+	clock1sec.restart();
+	clock100msec.restart();
+	clock50msec.restart();
+	clock25msec.restart();
 	
-
 
 	//game event 
 	while (window.isOpen())
 	{
+		
+		bool turnleft = false;
+		bool turnright = false;
+		bool goup = false;
+		bool godown = false;
+
+
 		sf::Event event;
 		while (window.pollEvent(event))
 		{
@@ -105,6 +117,8 @@ int main()
 				int xxx = event.mouseMove.x;int yyy = event.mouseMove.y;
 				printf("(%d,%d)",xxx,yyy);
 			}
+			
+			
 						
 		}
 		
@@ -112,31 +126,68 @@ int main()
 		//felix move
 		sf::Vector2f position = felix.getPosition();
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
-			if (position.x > 170.f)
-				felix.move(-speed,0.00);
+			if (position.x > 170.f) 
+			{
+				turnleft = true;
+				felix.move(-speed,0.00 );
+			}
+				
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
 			if (position.y < 520.f)
+			{
+				godown = true;
 				felix.move(0.00, speed);
+			}
+				
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
 			if (position.y > 0)
+			{
+				goup = true;
 				felix.move(0.00, -speed);
+			}
+				
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
 			if (position.x < 715)
+			{
+				turnright = true;
 				felix.move(speed, 0.00);
+
+			}
+
+		
+				
+		
 
 
 
 		window.clear();
 
-
-		time1sec = clock1sec.getElapsedTime();
+		//time update
+		
 		time100msec = clock100msec.getElapsedTime();
-		time50msec = clock50msec.getElapsedTime();
-		time25msec = clock25msec.getElapsedTime();
-
 		msec100 = time100msec.asMilliseconds();
-		msec50 = time50msec.asMilliseconds();
-		msec25 = time25msec.asMilliseconds();
+	
+		//felix animation
+		if (msec100 > 100 )
+		{	
+			if(turnright)
+				felix.setTextureRect(sf::IntRect((spriteSizeX-1) * animationFrame,(spriteSizeY *1) +3, spriteSizeX, spriteSizeY));
+			if(turnleft)
+				felix.setTextureRect(sf::IntRect((spriteSizeX-1) * animationFrame, spriteSizeY * 2, spriteSizeX, spriteSizeY));
+			if(goup)
+				felix.setTextureRect(sf::IntRect(spriteSizeX * animationFrame, spriteSizeY * 3, spriteSizeX, spriteSizeY));
+			if(godown)
+				felix.setTextureRect(sf::IntRect(spriteSizeX * animationFrame, spriteSizeY * 0, spriteSizeX, spriteSizeY));
+
+			animationFrame++;
+
+			if (animationFrame >= 4) {
+				animationFrame = 0;
+			}
+			clock100msec.restart();
+		}
+		
+
 
 		
 		window.draw(longbush);
