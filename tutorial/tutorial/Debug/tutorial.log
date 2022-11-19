@@ -1,42 +1,6 @@
-﻿  felix.cpp
-c:\users\user\desktop\game_tutorial\tutorial\tutorial\felix.cpp(11): warning C4244: '=': conversion from 'T' to 'float', possible loss of data
-          with
-          [
-              T=unsigned int
-          ]
-c:\users\user\desktop\game_tutorial\tutorial\tutorial\felix.cpp(12): warning C4244: '=': conversion from 'T' to 'float', possible loss of data
-          with
-          [
-              T=unsigned int
-          ]
-c:\users\user\desktop\game_tutorial\tutorial\tutorial\felix.cpp(14): warning C4244: 'argument': conversion from 'float' to 'T', possible loss of data
-          with
-          [
-              T=int
-          ]
-c:\users\user\desktop\game_tutorial\tutorial\tutorial\felix.cpp(26): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-c:\users\user\desktop\game_tutorial\tutorial\tutorial\felix.cpp(33): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-c:\users\user\desktop\game_tutorial\tutorial\tutorial\felix.cpp(40): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-c:\users\user\desktop\game_tutorial\tutorial\tutorial\felix.cpp(47): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-c:\users\user\desktop\game_tutorial\tutorial\tutorial\felix.cpp(57): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-c:\users\user\desktop\game_tutorial\tutorial\tutorial\felix.cpp(74): warning C4244: 'argument': conversion from 'float' to 'T', possible loss of data
-          with
-          [
-              T=int
-          ]
-c:\users\user\desktop\game_tutorial\tutorial\tutorial\felix.cpp(76): warning C4244: 'argument': conversion from 'float' to 'T', possible loss of data
-          with
-          [
-              T=int
-          ]
-c:\users\user\desktop\game_tutorial\tutorial\tutorial\felix.cpp(78): warning C4244: 'argument': conversion from 'float' to 'T', possible loss of data
-          with
-          [
-              T=int
-          ]
-c:\users\user\desktop\game_tutorial\tutorial\tutorial\felix.cpp(80): warning C4244: 'argument': conversion from 'float' to 'T', possible loss of data
-          with
-          [
-              T=int
-          ]
+﻿  Main.cpp
+c:\users\user\desktop\game_tutorial\tutorial\tutorial\main.cpp(41): warning C4305: 'argument': truncation from 'double' to 'float'
+c:\users\user\desktop\game_tutorial\tutorial\tutorial\main.cpp(42): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+c:\users\user\desktop\game_tutorial\tutorial\tutorial\main.cpp(73): warning C4101: 'msec50': unreferenced local variable
+c:\users\user\desktop\game_tutorial\tutorial\tutorial\main.cpp(73): warning C4101: 'msec25': unreferenced local variable
   tutorial.vcxproj -> C:\Users\User\Desktop\game_tutorial\tutorial\Debug\tutorial.exe

@@ -1,6 +1,8 @@
 #include <iostream>
 #include <typeinfo>
 #include "felix.h"
+#include "window_bg.h"
+#include "building.h"
 
 #include <SFML/Graphics.hpp>
 
@@ -11,15 +13,10 @@ short maxwin = 15;
 int main()
 {
 	sf::RenderWindow window(sf::VideoMode(900, 700), "fixed it felix game");
-	int k = 2;			//start chek window and felix position 
 
 	//building
-	sf::Texture pngbuilding;
-	pngbuilding.loadFromFile("./image/building/building.png");
-	sf::Sprite building;
-	building.setTexture(pngbuilding);
-	building.setScale(2,2);
-	building.setPosition(151, -1366);
+	building building;
+	building.setposition(151, -1366);
 
 	//floor
 	sf::Texture pnglongbush;
@@ -41,43 +38,29 @@ int main()
 		x_greenwin += 105;
 	}
 
-	//broken window
-	sf::Texture pngbrokenwin;
-	int x_brokenwin = 205;
-	int y_brokenwin = 213;
-	int posx_win[15];
-	int posy_win[15];
-	pngbrokenwin.loadFromFile("./image/window/brokewin.png");
-	sf::Sprite brokenwin[15];
-	for (int i = 0; i < maxwin; i++)
+	//fixed window
+	int x_win = 208;
+	int y_win = 216;
+	window_bg fixedwin[15];
+	for (int i = 0; i < 15 ; i++)
 	{
-		brokenwin[i].setTexture(pngbrokenwin);
-		brokenwin[i].setScale(1.05, 1.05);
-		brokenwin[i].setPosition(x_brokenwin, y_brokenwin);
-		posx_win[i] = x_brokenwin;
-		posy_win[i] = y_brokenwin;
-		x_brokenwin += 109;
-		if (x_brokenwin > 715)
+		fixedwin[i].setposition(x_win, y_win);
+		fixedwin[i].posx_win = x_win;
+		fixedwin[i].posy_win = y_win;
+		x_win += 109;
+		if (x_win > 715)
 		{
-			x_brokenwin = 205;
-			y_brokenwin = y_brokenwin+147;
+			x_win = 208;
+			y_win = y_win + 147;
 		}
 	}
 
-	
-	//half window 
-	sf::Texture pnghalfwin;
-	pnghalfwin.loadFromFile("./image/window/halfwin.png");
-	sf::Sprite halfwin;
-	halfwin.setTexture(pnghalfwin);
-	halfwin.setScale(1.05, 1.05);
-	halfwin.setPosition(500, 500);
 
 
 	//felix
 	
 	felix felix;
-	felix.set_position(posx_win[1], posy_win[1]);
+	felix.set_position(208, 216);
 	felix.animationFrame = 0;
 
 
@@ -120,7 +103,6 @@ int main()
 		window.clear();
 
 
-
 		//time update
 		time100msec = clock100msec.getElapsedTime();
 		msec100 = time100msec.asMilliseconds();
@@ -132,11 +114,11 @@ int main()
 		}
 		
 		window.draw(longbush);
-		window.draw(building);
+		building.draw(window);
 		for(int i=0;i<5;i++)
 			window.draw(greenwin[i]);
-		for (int i = 0; i < maxwin; i++)
-			window.draw(brokenwin[i]);
+		for (int i = 0; i < 15; i++)
+			fixedwin[i].draw(window);
 		
 		felix.draw(window); ///draw sprite
 		

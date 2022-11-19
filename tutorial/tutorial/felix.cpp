@@ -6,7 +6,7 @@ felix::felix()
 {
 	pngsprite.loadFromFile("./image/sprite.png");
 	sprite.setTexture(pngsprite);
-	sprite.setScale(0.7f, 0.7f);
+	sprite.setScale(0.6f, 0.6f);
 
 	spriteSizeX = pngsprite.getSize().x / 4;
 	spriteSizeY = pngsprite.getSize().y / 4;
@@ -47,6 +47,8 @@ void felix::move()
 			sprite.move(speed, 0.00);
 
 		}
+	
+
 }
 
 
@@ -78,6 +80,8 @@ void felix::animation()
 		sprite.setTextureRect(sf::IntRect(spriteSizeX * animationFrame, spriteSizeY * 3, spriteSizeX, spriteSizeY));
 	if (godown)
 		sprite.setTextureRect(sf::IntRect(spriteSizeX * animationFrame, spriteSizeY * 0, spriteSizeX, spriteSizeY));
+	
+
 
 	animationFrame++;
 
