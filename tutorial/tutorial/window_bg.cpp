@@ -6,7 +6,7 @@ window_bg::window_bg()
 	
 	fixedwindow.loadFromFile("./image/window/fixedwindow.png");
 	sprite.setTexture(fixedwindow);
-	sprite.setScale(2.14, 2.15);
+	sprite.setScale(2.08, 2.09);
 	
 }
 
@@ -15,7 +15,7 @@ void window_bg::setposition(int x, int y)
 	sprite.setPosition(x, y);
 }
 
-void window_bg::draw(sf::RenderWindow& i_window)
-{
-	i_window.draw(sprite);
-}
+void window_bg::draw(sf::RenderWindow& window)
+	{
+	window.draw(sprite);
+	}

@@ -1,0 +1,62 @@
+﻿  building.cpp
+c:\users\user\desktop\game_tutorial\coin_felix_game\coin_felix_game\building.cpp(15): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+  coin.cpp
+c:\users\user\desktop\game_tutorial\coin_felix_game\coin_felix_game\coin.cpp(25): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+  felix.cpp
+c:\users\user\desktop\game_tutorial\coin_felix_game\coin_felix_game\felix.cpp(11): warning C4244: '=': conversion from 'T' to 'float', possible loss of data
+          with
+          [
+              T=unsigned int
+          ]
+c:\users\user\desktop\game_tutorial\coin_felix_game\coin_felix_game\felix.cpp(12): warning C4244: '=': conversion from 'T' to 'float', possible loss of data
+          with
+          [
+              T=unsigned int
+          ]
+c:\users\user\desktop\game_tutorial\coin_felix_game\coin_felix_game\felix.cpp(14): warning C4244: 'argument': conversion from 'float' to 'T', possible loss of data
+          with
+          [
+              T=int
+          ]
+c:\users\user\desktop\game_tutorial\coin_felix_game\coin_felix_game\felix.cpp(26): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+c:\users\user\desktop\game_tutorial\coin_felix_game\coin_felix_game\felix.cpp(34): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+c:\users\user\desktop\game_tutorial\coin_felix_game\coin_felix_game\felix.cpp(43): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+c:\users\user\desktop\game_tutorial\coin_felix_game\coin_felix_game\felix.cpp(50): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+c:\users\user\desktop\game_tutorial\coin_felix_game\coin_felix_game\felix.cpp(71): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+c:\users\user\desktop\game_tutorial\coin_felix_game\coin_felix_game\felix.cpp(88): warning C4244: 'argument': conversion from 'float' to 'T', possible loss of data
+          with
+          [
+              T=int
+          ]
+c:\users\user\desktop\game_tutorial\coin_felix_game\coin_felix_game\felix.cpp(90): warning C4244: 'argument': conversion from 'float' to 'T', possible loss of data
+          with
+          [
+              T=int
+          ]
+c:\users\user\desktop\game_tutorial\coin_felix_game\coin_felix_game\felix.cpp(92): warning C4244: 'argument': conversion from 'float' to 'T', possible loss of data
+          with
+          [
+              T=int
+          ]
+c:\users\user\desktop\game_tutorial\coin_felix_game\coin_felix_game\felix.cpp(94): warning C4244: 'argument': conversion from 'float' to 'T', possible loss of data
+          with
+          [
+              T=int
+          ]
+c:\users\user\desktop\game_tutorial\coin_felix_game\coin_felix_game\felix.cpp(112): warning C4244: 'return': conversion from 'const T' to 'int', possible loss of data
+          with
+          [
+              T=float
+          ]
+  main.cpp
+c:\users\user\desktop\game_tutorial\coin_felix_game\coin_felix_game\main.cpp(27): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+c:\users\user\desktop\game_tutorial\coin_felix_game\coin_felix_game\main.cpp(28): warning C4305: 'argument': truncation from 'double' to 'float'
+c:\users\user\desktop\game_tutorial\coin_felix_game\coin_felix_game\main.cpp(53): warning C4305: 'argument': truncation from 'double' to 'float'
+c:\users\user\desktop\game_tutorial\coin_felix_game\coin_felix_game\main.cpp(54): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+c:\users\user\desktop\game_tutorial\coin_felix_game\coin_felix_game\main.cpp(104): warning C4101: 'msec50': unreferenced local variable
+c:\users\user\desktop\game_tutorial\coin_felix_game\coin_felix_game\main.cpp(104): warning C4101: 'msec25': unreferenced local variable
+  window_bg.cpp
+c:\users\user\desktop\game_tutorial\coin_felix_game\coin_felix_game\window_bg.cpp(9): warning C4305: 'argument': truncation from 'double' to 'float'
+c:\users\user\desktop\game_tutorial\coin_felix_game\coin_felix_game\window_bg.cpp(15): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+  Generating Code...
+  coin_felix_game.vcxproj -> C:\Users\User\Desktop\game_tutorial\coin_felix_game\Debug\coin_felix_game.exe

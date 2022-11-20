@@ -1,5 +1,6 @@
 #pragma once
 #include <SFML/Graphics.hpp>
+#include "coin.h"
 
 class felix
 {
@@ -25,6 +26,8 @@ public:
 	void reset_movestate();
 	void animation();
 	void draw(sf::RenderWindow& i_window);
+	int getY();
+	bool isCollidingWithCoin(coin *coin);
 
 	
 

@@ -19,35 +19,55 @@ felix::felix()
 void felix::move()
 {
 	sf::Vector2f position = sprite.getPosition();
+
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
-		if (position.x > 170.f)
-		{
+	{
 			turnleft = true;
 			sprite.move(-speed, 0.00);
-		}
+	}
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
-		if (position.y < 520.f)
+	{
+		if (position.x > 714 || position.x < 150)
 		{
 			godown = true;
-			sprite.move(0.00, speed);
+			sprite.move(0.00, speed*1.2);
 		}
+		else
+		{
+			godown = true;
+		}
+	}
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
-		if (position.y > 0)
+	{
+		if (position.x > 714 || position.x < 150)
 		{
 			goup = true;
-			sprite.move(0.00, -speed);
+			sprite.move(0.00, -speed*1.2);
 		}
+		else
+		{
+			goup = true;
+		}
+	}
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
-		if (position.x < 715)
 		{
 			turnright = true;
 			sprite.move(speed, 0.00);
 
 		}
+
+	if (position.x > 724)
+		sprite.setPosition(724, position.y);
+	else if (position.x < 140)
+		sprite.setPosition(140, position.y);
 	
+	if (position.y > 600)
+		sprite.setPosition(position.x, 600);
+	else if (position.y < 50)
+		sprite.setPosition(position.x, 50);
 
 }
 
@@ -62,7 +82,7 @@ void felix::set_position(int x, int y)
 
 void felix::reset_movestate()
 {
-	speed = 0.25;
+	speed = 0.28;
 	turnleft = false;
 	turnright = false;
 	goup = false;
@@ -94,6 +114,18 @@ void felix::animation()
 void felix::draw(sf::RenderWindow& i_window)
 {
 	i_window.draw(sprite);
+}
+
+int felix::getY() {
+	return sprite.getPosition().y;
+}
+
+
+bool felix::isCollidingWithCoin(coin *coin) {
+	if (sprite.getGlobalBounds().intersects(coin->getGlobalBounds())) {
+		return true;
+	}
+	return false;
 }
 
 
