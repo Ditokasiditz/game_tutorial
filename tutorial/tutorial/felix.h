@@ -1,6 +1,7 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include "coin.h"
+#include "brick.h"
 
 class felix
 {
@@ -29,6 +30,7 @@ public:
 	int getY();
 	int getX();
 	bool isCollidingWithCoin(coin *coin);
+	bool isCollidingWithBrick(brick *brick);
 	
 	
 

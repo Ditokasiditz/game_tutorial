@@ -30,38 +30,24 @@ void felix::move()
 		if ((263 < position.y && position.y < 281) || (417 < position.y && position.y < 435) || (570 < position.y))
 		{
 			sprite.move(-speed, 0.00);
-			int xxx = sprite.getPosition().x; int yyy = sprite.getPosition().y;
-			printf("(%d,%d)", xxx, yyy);
 		}
 	}
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
 	{
+		godown = true;
 		if (position.x > 714 || position.x < 150)
 		{
-			godown = true;
 			sprite.move(0.00, speed*1.2);
-			int xxx = sprite.getPosition().x; int yyy = sprite.getPosition().y;
-			printf("(%d,%d)", xxx, yyy);
-		}
-		else
-		{
-			godown = true;
 		}
 	}
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
 	{
+		goup = true;
 		if (position.x > 714 || position.x < 150)
 		{
-			goup = true;
 			sprite.move(0.00, -speed*1.2);
-			int xxx = sprite.getPosition().x; int yyy = sprite.getPosition().y;
-			printf("(%d,%d)", xxx, yyy);
-		}
-		else
-		{
-			goup = true;
 		}
 	}
 
@@ -71,8 +57,6 @@ void felix::move()
 		if ( (263<position.y && position.y<281) || (417 < position.y && position.y < 435) || (570 < position.y) )
 		{
 			sprite.move(speed, 0.00);
-			int xxx = sprite.getPosition().x; int yyy = sprite.getPosition().y;
-			printf("(%d,%d)", xxx, yyy);
 		}
 	}
 
@@ -119,8 +103,6 @@ void felix::animation()
 	if (godown)
 		sprite.setTextureRect(sf::IntRect(spriteSizeX * animationFrame, spriteSizeY * 0, spriteSizeX, spriteSizeY));
 	
-
-
 	animationFrame++;
 
 	if (animationFrame >= 4) {
@@ -150,6 +132,15 @@ bool felix::isCollidingWithCoin(coin *coin) {
 	}
 	return false;
 }
+
+
+bool felix::isCollidingWithBrick(brick *brick) {
+	if (sprite.getGlobalBounds().intersects(brick->getGlobalBounds())) {
+		return true;
+	}
+	return false;
+}
+
 
 
 

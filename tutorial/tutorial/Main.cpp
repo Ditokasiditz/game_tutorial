@@ -13,13 +13,15 @@
 
 const int maxwin = 15;
 const int maxcoin = 27;
-
+int random_between(int min, int max);
 
 
 int main()
 {
 	sf::RenderWindow window(sf::VideoMode(900, 700), "fixed it felix game");
+	srand(time(NULL));
 
+	
 
 	//floorstep
 	sf::Texture floorpng;
@@ -79,9 +81,11 @@ int main()
 
 
 	//brick 
+	std::vector<brick*> brickVec;
+	
 	brick brick;
 	brick.setposition(190, 90);
-	
+	brickVec.push_back(&brick);
 
 
 	//felix
@@ -145,20 +149,22 @@ int main()
 
 
 	//timer
-	double msec100, msec50, msec25, msec125;
-	sf::Clock clock1sec, clock100msec, clock50msec, clock25msec, clock125msec;
-	sf::Time time1sec, time100msec, time50msec, time25msec, time125msec;
+	double msec100, msec50, msec25, msec125,msec2200;
+	sf::Clock clock1sec, clock100msec, clock50msec, clock25msec, clock125msec, clock2200msec;
+	sf::Time time1sec, time100msec, time50msec, time25msec, time125msec, time2200msec;
 	clock1sec.restart();
 	clock100msec.restart();
 	clock50msec.restart();
 	clock25msec.restart();
 	clock125msec.restart();
+	clock2200msec.restart();
 	
 
 	//game event 
 	while (window.isOpen())
 	{
 		felix.reset_movestate();
+		
 		
 
 		sf::Event event;
@@ -191,6 +197,19 @@ int main()
 		}
 
 
+		//brick logic
+		for (int i = 0; i < brickVec.size(); i++) {
+			if (felix.isCollidingWithBrick(brickVec[i])) {
+				brickVec[i]->setposition(422234, 423432);
+				lifechance--;
+				sslife.str("");
+				sslife << "Lifes " << lifechance;
+				lbllife.setString(sslife.str());
+			}
+		}
+
+		
+
 
 		window.clear();
 
@@ -198,9 +217,18 @@ int main()
 		//time update
 		time100msec = clock100msec.getElapsedTime();
 		time125msec = clock125msec.getElapsedTime();
+		time2200msec = clock2200msec.getElapsedTime();
 		msec100 = time100msec.asMilliseconds();
 		msec125 = time125msec.asMilliseconds();
+		msec2200 = time2200msec.asMilliseconds();
 
+		//reset posx brick
+		if (msec2200 > 2200)
+		{
+			int newx_brick = random_between(150, 724);
+			brick.setposition(newx_brick,90);
+			clock2200msec.restart();
+		}
 		//coin animation 
 		if(msec125 > 125)
 		{
@@ -253,3 +281,10 @@ int main()
 	return 0;
 }
 
+
+
+int random_between(int min, int max)
+{
+	int r = (rand() / (float)RAND_MAX) * (max + 1) + min;
+	return r > max ? max : r;
+}

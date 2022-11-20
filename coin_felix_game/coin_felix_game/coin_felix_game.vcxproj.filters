@@ -44,5 +44,8 @@
     <ClInclude Include="window_bg.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="dArr.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

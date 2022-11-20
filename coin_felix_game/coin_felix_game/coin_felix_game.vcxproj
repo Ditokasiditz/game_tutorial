@@ -138,6 +138,7 @@
   <ItemGroup>
     <ClInclude Include="building.h" />
     <ClInclude Include="coin.h" />
+    <ClInclude Include="dArr.h" />
     <ClInclude Include="felix.h" />
     <ClInclude Include="window_bg.h" />
   </ItemGroup>
