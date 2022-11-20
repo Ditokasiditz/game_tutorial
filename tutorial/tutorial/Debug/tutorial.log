@@ -1,12 +1,12 @@
 ﻿  Main.cpp
-c:\users\user\desktop\game_tutorial\tutorial\tutorial\main.cpp(22): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
-c:\users\user\desktop\game_tutorial\tutorial\tutorial\main.cpp(35): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-c:\users\user\desktop\game_tutorial\tutorial\tutorial\main.cpp(36): warning C4305: 'argument': truncation from 'double' to 'float'
-c:\users\user\desktop\game_tutorial\tutorial\tutorial\main.cpp(60): warning C4305: 'argument': truncation from 'double' to 'float'
+c:\users\user\desktop\game_tutorial\tutorial\tutorial\main.cpp(23): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
 c:\users\user\desktop\game_tutorial\tutorial\tutorial\main.cpp(61): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-c:\users\user\desktop\game_tutorial\tutorial\tutorial\main.cpp(189): warning C4018: '<': signed/unsigned mismatch
-c:\users\user\desktop\game_tutorial\tutorial\tutorial\main.cpp(201): warning C4018: '<': signed/unsigned mismatch
-c:\users\user\desktop\game_tutorial\tutorial\tutorial\main.cpp(152): warning C4101: 'msec50': unreferenced local variable
-c:\users\user\desktop\game_tutorial\tutorial\tutorial\main.cpp(152): warning C4101: 'msec25': unreferenced local variable
-c:\users\user\desktop\game_tutorial\tutorial\tutorial\main.cpp(288): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+c:\users\user\desktop\game_tutorial\tutorial\tutorial\main.cpp(62): warning C4305: 'argument': truncation from 'double' to 'float'
+c:\users\user\desktop\game_tutorial\tutorial\tutorial\main.cpp(86): warning C4305: 'argument': truncation from 'double' to 'float'
+c:\users\user\desktop\game_tutorial\tutorial\tutorial\main.cpp(87): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+c:\users\user\desktop\game_tutorial\tutorial\tutorial\main.cpp(213): warning C4018: '<': signed/unsigned mismatch
+c:\users\user\desktop\game_tutorial\tutorial\tutorial\main.cpp(226): warning C4018: '<': signed/unsigned mismatch
+c:\users\user\desktop\game_tutorial\tutorial\tutorial\main.cpp(178): warning C4101: 'msec50': unreferenced local variable
+c:\users\user\desktop\game_tutorial\tutorial\tutorial\main.cpp(178): warning C4101: 'msec25': unreferenced local variable
+c:\users\user\desktop\game_tutorial\tutorial\tutorial\main.cpp(320): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
   tutorial.vcxproj -> C:\Users\User\Desktop\game_tutorial\tutorial\Debug\tutorial.exe
