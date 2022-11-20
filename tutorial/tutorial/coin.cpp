@@ -20,3 +20,16 @@ void coin::setposition(int x, int y)
 {
 	sprite.setPosition(x, y);
 }
+
+
+void coin::animation()
+{
+	
+	sprite.setTextureRect(sf::IntRect(16 * animationFrame,0 ,16, 16));
+	
+	animationFrame++;
+
+	if (animationFrame >= 10) {
+		animationFrame = 0;
+	}
+}

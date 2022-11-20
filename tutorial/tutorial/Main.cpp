@@ -1,10 +1,12 @@
 #include <iostream>
 #include <sstream>
 #include <typeinfo>
+#include <cstdlib>
 #include "felix.h"
 #include "window_bg.h"
 #include "building.h"
 #include "coin.h"
+#include "brick.h"
 
 #include <SFML/Graphics.hpp>
 
@@ -17,6 +19,7 @@ const int maxcoin = 27;
 int main()
 {
 	sf::RenderWindow window(sf::VideoMode(900, 700), "fixed it felix game");
+
 
 	//floorstep
 	sf::Texture floorpng;
@@ -33,7 +36,6 @@ int main()
 	}
 	
 	
-
 	//building
 	building building;
 	building.setposition(151, -1366);
@@ -76,22 +78,29 @@ int main()
 	}
 
 
+	//brick 
+	brick brick;
+	brick.setposition(190, 90);
+	
+
 
 	//felix
-	
 	felix felix;
 	felix.set_position(447, 270);
 	felix.animationFrame = 0;
+
 
 
 	//coin object
 	std::vector<coin*> coinVec;
 
 	int x_coin = 200;
-	int y_coin = 285;
+	int y_coin = 290;
+
 	coin coin[maxcoin];
 	for (int i = 0; i < maxcoin; i++)
 	{
+		coin[i].animationFrame = 0;
 		coinVec.push_back(&coin[i]);
 		coin[i].setposition(x_coin, y_coin);
 		x_coin = x_coin+60;
@@ -105,7 +114,6 @@ int main()
 
 
 	//Score Objects:
-
 	int score = 0;
 
 	sf::Font arial;
@@ -122,14 +130,29 @@ int main()
 
 
 
+	//life Objects:
+	int lifechance = 3;
+
+	std::ostringstream sslife;
+	sslife << "Lifes   " << lifechance;
+
+	sf::Text lbllife;
+	lbllife.setCharacterSize(30);
+	lbllife.setPosition({ 10, 50 });
+	lbllife.setFont(arial);				//define with score obj
+	lbllife.setString(sslife.str());
+
+
+
 	//timer
-	double msec100, msec50, msec25;
-	sf::Clock clock1sec, clock100msec, clock50msec, clock25msec;
-	sf::Time time1sec, time100msec, time50msec, time25msec;
+	double msec100, msec50, msec25, msec125;
+	sf::Clock clock1sec, clock100msec, clock50msec, clock25msec, clock125msec;
+	sf::Time time1sec, time100msec, time50msec, time25msec, time125msec;
 	clock1sec.restart();
 	clock100msec.restart();
 	clock50msec.restart();
 	clock25msec.restart();
+	clock125msec.restart();
 	
 
 	//game event 
@@ -145,16 +168,15 @@ int main()
 				window.close();	
 			if (event.type == sf::Event::MouseMoved)
 			{
-				int xxx = event.mouseMove.x;int yyy = event.mouseMove.y;
-				printf("(%d,%d)",xxx,yyy);
-			}
-			
-			
-						
+				//int xxx = event.mouseMove.x;int yyy = event.mouseMove.y;
+				//printf("(%d,%d)",xxx,yyy);
+			}			
 		}
 
-
+		brick.falldown();
 		felix.move();
+		//int xxx = felix.getX(); int yyy = felix.getY();
+		//printf("(%d,%d)", xxx, yyy);
 
 
 		//coin logic
@@ -175,7 +197,20 @@ int main()
 
 		//time update
 		time100msec = clock100msec.getElapsedTime();
+		time125msec = clock125msec.getElapsedTime();
 		msec100 = time100msec.asMilliseconds();
+		msec125 = time125msec.asMilliseconds();
+
+		//coin animation 
+		if(msec125 > 125)
+		{
+			for (int i = 0; i < maxcoin; i++)
+			{
+				coin[i].animation();
+				clock125msec.restart();
+			}
+		}
+
 		//felix animation
 		if (msec100 > 100 )
 		{	
@@ -183,21 +218,32 @@ int main()
 			clock100msec.restart();
 		}
 
-		
+
+
+		//window draw
 		window.draw(longbush);
+
 		building.draw(window);
+
 		for (int i = 0; i < 3; i++)
 			window.draw(floor[i]);
+
 		for(int i=0;i<5;i++)
 			window.draw(greenwin[i]);
+
 		for (int i = 0; i < maxwin; i++)
 			fixedwin[i].draw(window);
+
 		for (int i = 0; i < maxcoin; i++)
 			coin[i].draw(window);
+
 		window.draw(lblScore);
 
-		
+		window.draw(lbllife);
+
 		felix.draw(window); ///draw sprite
+
+		brick.draw(window);
 		
 		
 

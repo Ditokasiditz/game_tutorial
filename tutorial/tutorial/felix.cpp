@@ -20,10 +20,19 @@ void felix::move()
 {
 	sf::Vector2f position = sprite.getPosition();
 
+	//slow to enter the floor 
+	if (((263 < position.y && position.y < 281) || (417 < position.y && position.y < 435) || (570 < position.y)) && (position.x > 714 || position.x < 150))
+		speed = speed * 0.3;
+
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
 	{
-			turnleft = true;
+		turnleft = true;
+		if ((263 < position.y && position.y < 281) || (417 < position.y && position.y < 435) || (570 < position.y))
+		{
 			sprite.move(-speed, 0.00);
+			int xxx = sprite.getPosition().x; int yyy = sprite.getPosition().y;
+			printf("(%d,%d)", xxx, yyy);
+		}
 	}
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
@@ -32,6 +41,8 @@ void felix::move()
 		{
 			godown = true;
 			sprite.move(0.00, speed*1.2);
+			int xxx = sprite.getPosition().x; int yyy = sprite.getPosition().y;
+			printf("(%d,%d)", xxx, yyy);
 		}
 		else
 		{
@@ -45,6 +56,8 @@ void felix::move()
 		{
 			goup = true;
 			sprite.move(0.00, -speed*1.2);
+			int xxx = sprite.getPosition().x; int yyy = sprite.getPosition().y;
+			printf("(%d,%d)", xxx, yyy);
 		}
 		else
 		{
@@ -53,24 +66,29 @@ void felix::move()
 	}
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
+	{
+		turnright = true;
+		if ( (263<position.y && position.y<281) || (417 < position.y && position.y < 435) || (570 < position.y) )
 		{
-			turnright = true;
 			sprite.move(speed, 0.00);
-
+			int xxx = sprite.getPosition().x; int yyy = sprite.getPosition().y;
+			printf("(%d,%d)", xxx, yyy);
 		}
+	}
 
+
+	//check limit map move 
 	if (position.x > 724)
 		sprite.setPosition(724, position.y);
 	else if (position.x < 140)
 		sprite.setPosition(140, position.y);
 	
-	if (position.y > 600)
-		sprite.setPosition(position.x, 600);
+	if (position.y > 590)
+		sprite.setPosition(position.x, 590);
 	else if (position.y < 50)
 		sprite.setPosition(position.x, 50);
 
 }
-
 
 
 
@@ -116,10 +134,15 @@ void felix::draw(sf::RenderWindow& i_window)
 	i_window.draw(sprite);
 }
 
-int felix::getY() {
+int felix::getY() 
+{
 	return sprite.getPosition().y;
 }
 
+int felix::getX()
+{
+	return sprite.getPosition().x;
+}
 
 bool felix::isCollidingWithCoin(coin *coin) {
 	if (sprite.getGlobalBounds().intersects(coin->getGlobalBounds())) {

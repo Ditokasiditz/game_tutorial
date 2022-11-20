@@ -21,14 +21,15 @@ public:
 	
 	felix();
 	int animationFrame = 0;
+	void animation();
 	void move();
 	void set_position(int x, int y);
 	void reset_movestate();
-	void animation();
 	void draw(sf::RenderWindow& i_window);
 	int getY();
+	int getX();
 	bool isCollidingWithCoin(coin *coin);
-
+	
 	
 
 };
