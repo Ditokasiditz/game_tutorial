@@ -142,5 +142,19 @@ bool felix::isCollidingWithBrick(brick *brick) {
 }
 
 
+bool felix::isCollidingWithCake(cake *cake) {
+	if (sprite.getGlobalBounds().intersects(cake->getGlobalBounds())) {
+		return true;
+	}
+	return false;
+}
+
+
+void felix::multispeed()
+{
+	speed = speed * 1.2;
+}
+
+
 
 

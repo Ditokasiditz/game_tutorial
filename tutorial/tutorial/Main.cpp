@@ -7,6 +7,7 @@
 #include "building.h"
 #include "coin.h"
 #include "brick.h"
+#include "cake.h"
 
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
@@ -15,6 +16,7 @@
 const int maxwin = 15;
 const int maxcoin = 27;
 int random_between(int min, int max);
+int cake_posy[3] = { 280,435,590 };
 
 
 int main()
@@ -106,19 +108,25 @@ int main()
 	}
 
 
-	//brick 
-	std::vector<brick*> brickVec;
-
-	brick brick;
-	brick.setposition(190, 90);
-	brickVec.push_back(&brick);
-
-
 	//felix
 	felix felix;
 	felix.set_position(447, 270);
 	felix.animationFrame = 0;
 
+
+	//cake object
+	std::vector<cake*> cakeVec;
+
+	cake cake;
+	cake.setposition(5000, 5000);
+	cakeVec.push_back(&cake);
+	
+	//brick object
+	std::vector<brick*> brickVec;
+
+	brick brick;
+	brick.setposition(190, 90);
+	brickVec.push_back(&brick);
 
 
 	//coin object
@@ -161,7 +169,7 @@ int main()
 
 
 	//life Objects:
-	int lifechance = 3;
+	int lifechance = 5;
 
 	std::ostringstream sslife;
 	sslife << "Lifes   " << lifechance;
@@ -175,15 +183,17 @@ int main()
 
 
 	//timer
-	double msec100, msec50, msec25, msec125, msec2200;
-	sf::Clock clock1sec, clock100msec, clock50msec, clock25msec, clock125msec, clock2200msec;
-	sf::Time time1sec, time100msec, time50msec, time25msec, time125msec, time2200msec;
+	double msec100, msec50, msec25, msec125, msec2200,sec5, sec6;
+	sf::Clock clock1sec, clock100msec, clock50msec, clock25msec, clock125msec, clock2200msec, clock5sec, clock6sec;
+	sf::Time time1sec, time100msec, time50msec, time25msec, time125msec, time2200msec, time5sec, time6sec;
 	clock1sec.restart();
 	clock100msec.restart();
 	clock50msec.restart();
 	clock25msec.restart();
 	clock125msec.restart();
 	clock2200msec.restart();
+	clock5sec.restart();
+	clock6sec.restart();
 
 
 	//game event 
@@ -191,6 +201,13 @@ int main()
 	{
 		felix.reset_movestate();
 
+		//cake logic
+		for (int i = 0; i < cakeVec.size(); i++) {
+			if (felix.isCollidingWithCake(cakeVec[i])) {
+				cakeVec[i]->setposition(45555, 45555);
+				felix.multispeed();
+			}
+		}
 
 
 		sf::Event event;
@@ -207,9 +224,27 @@ int main()
 
 		brick.falldown();
 		felix.move();
-		
 
-		//coin logic
+		
+		//coin come back
+		if (score % 270 == 0)
+		{
+			int x_coin = 200;
+			int y_coin = 290;
+			for (int i = 0; i < maxcoin; i++)
+			{
+				coinVec.push_back(&coin[i]);
+				coin[i].setposition(x_coin, y_coin);
+				x_coin = x_coin + 60;
+				if (x_coin > 715)
+				{
+					x_coin = 200;
+					y_coin = y_coin + 155;
+				}
+			}
+		}
+
+		//coin collect logic
 		for (int i = 0; i < coinVec.size(); i++) {
 			if (felix.isCollidingWithCoin(coinVec[i])) {
 				coinsound.play();
@@ -225,7 +260,7 @@ int main()
 		//brick logic
 		for (int i = 0; i < brickVec.size(); i++) {
 			if (felix.isCollidingWithBrick(brickVec[i])) {
-				brickVec[i]->setposition(422234, 423432);
+				brickVec[i]->setposition(45555,45555);
 				lifechance--;
 				if (lifechance == 0)
 				{
@@ -241,6 +276,8 @@ int main()
 		}
 
 
+		
+
 
 
 		window.clear();
@@ -250,20 +287,44 @@ int main()
 		time100msec = clock100msec.getElapsedTime();
 		time125msec = clock125msec.getElapsedTime();
 		time2200msec = clock2200msec.getElapsedTime();
+		time5sec = clock5sec.getElapsedTime();
+		time6sec = clock6sec.getElapsedTime();
+
 		msec100 = time100msec.asMilliseconds();
 		msec125 = time125msec.asMilliseconds();
 		msec2200 = time2200msec.asMilliseconds();
+		sec5 = time5sec.asSeconds();
+		sec6 = time6sec.asSeconds();
+
+
+		//level update
+		//++brick speed
+		if (sec5 >= 5)
+		{
+			brick.speed = brick.speed * 1.08;
+			clock5sec.restart();
+		}
+		//spawn cake
+		if (sec6 >= 6)
+		{
+			int newx_cake = random_between(160, 704);
+			int newy_cake = cake_posy[random_between(0, 2)];
+			cake.setposition(newx_cake, newy_cake);
+			clock6sec.restart();
+		}
+
 
 		//reset posx brick
-		if (msec2200 > 3200)
+		if (brick.getY() >= 760)
 		{
 			int newx_brick = random_between(150, 724);
 			brick.setposition(newx_brick, 90);
-			clock2200msec.restart();
 		}
-		//coin animation 
+		
+		//coin&cake animation 
 		if (msec125 > 125)
 		{
+			cake.animation();
 			for (int i = 0; i < maxcoin; i++)
 			{
 				coin[i].animation();
@@ -304,6 +365,8 @@ int main()
 		felix.draw(window); ///draw sprite
 
 		brick.draw(window);
+
+		cake.draw(window);
 
 
 

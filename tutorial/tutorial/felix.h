@@ -2,6 +2,7 @@
 #include <SFML/Graphics.hpp>
 #include "coin.h"
 #include "brick.h"
+#include "cake.h"
 
 class felix
 {
@@ -31,6 +32,8 @@ public:
 	int getX();
 	bool isCollidingWithCoin(coin *coin);
 	bool isCollidingWithBrick(brick *brick);
+	bool isCollidingWithCake(cake *cake);
+	void multispeed();
 	
 	
 

@@ -131,6 +131,7 @@
   <ItemGroup>
     <ClCompile Include="brick.cpp" />
     <ClCompile Include="building.cpp" />
+    <ClCompile Include="cake.cpp" />
     <ClCompile Include="coin.cpp" />
     <ClCompile Include="felix.cpp" />
     <ClCompile Include="Main.cpp" />
@@ -139,6 +140,7 @@
   <ItemGroup>
     <ClInclude Include="brick.h" />
     <ClInclude Include="building.h" />
+    <ClInclude Include="cake.h" />
     <ClInclude Include="coin.h" />
     <ClInclude Include="felix.h" />
     <ClInclude Include="window_bg.h" />

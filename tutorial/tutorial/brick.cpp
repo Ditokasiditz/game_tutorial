@@ -27,3 +27,12 @@ void brick::falldown()
 }
 
 
+int brick::getY()
+{
+	return sprite.getPosition().y;
+}
+
+int brick::getX()
+{
+	return sprite.getPosition().x;
+}
