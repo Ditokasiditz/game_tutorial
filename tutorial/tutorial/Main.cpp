@@ -17,7 +17,9 @@ const int maxwin = 15;
 const int maxcoin = 27;
 int random_between(int min, int max);
 int cake_posy[3] = { 280,435,590 };
-
+int multispeed;
+int now_brick = 1;
+int gamestate = 0;  //0=menustate  1=gameplay 
 
 int main()
 {
@@ -37,6 +39,9 @@ int main()
 	sf::SoundBuffer game3;
 	game3.loadFromFile("./sound/Cartoon.wav");
 
+	sf::SoundBuffer game4;
+	game4.loadFromFile("./sound/Common 12.flac");
+
 	sf::Sound themesong;
 	themesong.setBuffer(game);
 	themesong.play();
@@ -49,7 +54,11 @@ int main()
 
 	sf::Sound hurtsound;
 	hurtsound.setBuffer(game3);
-	hurtsound.setVolume(30.f);
+	hurtsound.setVolume(40.f);
+
+	sf::Sound cakesound;
+	cakesound.setBuffer(game4);
+	cakesound.setVolume(70.f);
 
 	//floorstep
 	sf::Texture floorpng;
@@ -124,9 +133,13 @@ int main()
 	//brick object
 	std::vector<brick*> brickVec;
 
-	brick brick;
-	brick.setposition(190, 90);
-	brickVec.push_back(&brick);
+	brick brick[2];
+	for (int i = 0; i < 2; i++)
+	{
+		brick[i].setposition(190, 80);
+		brickVec.push_back(&brick[i]);
+	}
+	
 
 
 	//coin object
@@ -183,10 +196,9 @@ int main()
 
 
 	//timer
-	double msec100, msec50, msec25, msec125, msec2200,sec5, sec6;
-	sf::Clock clock1sec, clock100msec, clock50msec, clock25msec, clock125msec, clock2200msec, clock5sec, clock6sec;
-	sf::Time time1sec, time100msec, time50msec, time25msec, time125msec, time2200msec, time5sec, time6sec;
-	clock1sec.restart();
+	double msec100, msec50, msec25, msec125, msec2200,sec5, sec6,sec56;
+	sf::Clock  clock100msec, clock50msec, clock25msec, clock125msec, clock2200msec, clock5sec, clock6sec, clock56sec;
+	sf::Time time1sec, time100msec, time50msec, time25msec, time125msec, time2200msec, time5sec, time6sec, time56sec;
 	clock100msec.restart();
 	clock50msec.restart();
 	clock25msec.restart();
@@ -194,18 +206,21 @@ int main()
 	clock2200msec.restart();
 	clock5sec.restart();
 	clock6sec.restart();
-
+	clock56sec.restart();
 
 	//game event 
 	while (window.isOpen())
 	{
 		felix.reset_movestate();
 
+		felix.multispeed(felix.powerspeed);
+
 		//cake logic
 		for (int i = 0; i < cakeVec.size(); i++) {
 			if (felix.isCollidingWithCake(cakeVec[i])) {
+				cakesound.play();
 				cakeVec[i]->setposition(45555, 45555);
-				felix.multispeed();
+				felix.powerspeed++;
 			}
 		}
 
@@ -222,7 +237,8 @@ int main()
 			}
 		}
 
-		brick.falldown();
+		for(int i=0;i<now_brick;i++)
+			brick[i].falldown();
 		felix.move();
 
 		
@@ -260,7 +276,7 @@ int main()
 		//brick logic
 		for (int i = 0; i < brickVec.size(); i++) {
 			if (felix.isCollidingWithBrick(brickVec[i])) {
-				brickVec[i]->setposition(45555,45555);
+				brickVec[i]->setposition(45555,brick[i].getY()+50);
 				lifechance--;
 				if (lifechance == 0)
 				{
@@ -289,23 +305,30 @@ int main()
 		time2200msec = clock2200msec.getElapsedTime();
 		time5sec = clock5sec.getElapsedTime();
 		time6sec = clock6sec.getElapsedTime();
+		time56sec = clock56sec.getElapsedTime();
 
 		msec100 = time100msec.asMilliseconds();
 		msec125 = time125msec.asMilliseconds();
 		msec2200 = time2200msec.asMilliseconds();
 		sec5 = time5sec.asSeconds();
 		sec6 = time6sec.asSeconds();
+		sec56 = time56sec.asSeconds();
 
 
 		//level update
 		//++brick speed
-		if (sec5 >= 5)
+		if (sec5 >= 5 && sec56 < 67)
 		{
-			brick.speed = brick.speed * 1.08;
+			brick[0].speed = brick[0].speed * 1.08;
 			clock5sec.restart();
 		}
+		else if(sec56 > 68)
+		{
+			now_brick = 2;
+			brick[1].speed = brick[0].speed;
+		}
 		//spawn cake
-		if (sec6 >= 6)
+		if (sec6 >= 6 && sec56 < 56)
 		{
 			int newx_cake = random_between(160, 704);
 			int newy_cake = cake_posy[random_between(0, 2)];
@@ -315,10 +338,12 @@ int main()
 
 
 		//reset posx brick
-		if (brick.getY() >= 760)
-		{
-			int newx_brick = random_between(150, 724);
-			brick.setposition(newx_brick, 90);
+		for (int i = 0; i < now_brick; i++) {
+			if (brick[i].getY() >= 760)
+			{
+				int newx_brick = random_between(150, 724);
+				brick[i].setposition(newx_brick, 80);
+			}
 		}
 		
 		//coin&cake animation 
@@ -364,11 +389,10 @@ int main()
 
 		felix.draw(window); ///draw sprite
 
-		brick.draw(window);
-
 		cake.draw(window);
 
-
+		for(int i=0;i<now_brick;i++)
+			brick[i].draw(window);
 
 		window.display();
 	}

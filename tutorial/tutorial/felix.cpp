@@ -1,5 +1,6 @@
 #include "felix.h"
 #include <SFML/Graphics.hpp>
+#include <math.h>
 
 
 felix::felix()
@@ -7,6 +8,8 @@ felix::felix()
 	pngsprite.loadFromFile("./image/sprite.png");
 	sprite.setTexture(pngsprite);
 	sprite.setScale(0.6f, 0.6f);
+	powerspeed = 0;
+
 
 	spriteSizeX = pngsprite.getSize().x / 4;
 	spriteSizeY = pngsprite.getSize().y / 4;
@@ -22,7 +25,7 @@ void felix::move()
 
 	//slow to enter the floor 
 	if (((263 < position.y && position.y < 281) || (417 < position.y && position.y < 435) || (570 < position.y)) && (position.x > 714 || position.x < 150))
-		speed = speed * 0.3;
+		speed = 0.09;
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
 	{
@@ -95,9 +98,9 @@ void felix::reset_movestate()
 void felix::animation()
 {
 	if (turnright)
-		sprite.setTextureRect(sf::IntRect((spriteSizeX - 1) * animationFrame, (spriteSizeY * 1) + 4, spriteSizeX, spriteSizeY));
+		sprite.setTextureRect(sf::IntRect((spriteSizeX) * animationFrame-2, (spriteSizeY * 1) + 4, spriteSizeX, spriteSizeY));
 	if (turnleft)
-		sprite.setTextureRect(sf::IntRect((spriteSizeX - 1) * animationFrame, (spriteSizeY * 2) + 3, spriteSizeX, spriteSizeY));
+		sprite.setTextureRect(sf::IntRect((spriteSizeX) * animationFrame-2, (spriteSizeY * 2) + 3, spriteSizeX, spriteSizeY));
 	if (goup)
 		sprite.setTextureRect(sf::IntRect(spriteSizeX * animationFrame, spriteSizeY * 3, spriteSizeX, spriteSizeY));
 	if (godown)
@@ -150,9 +153,9 @@ bool felix::isCollidingWithCake(cake *cake) {
 }
 
 
-void felix::multispeed()
+void felix::multispeed(int x)
 {
-	speed = speed * 1.2;
+	speed = speed * pow(1.2,powerspeed);
 }
 
 

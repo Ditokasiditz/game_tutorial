@@ -33,8 +33,8 @@ public:
 	bool isCollidingWithCoin(coin *coin);
 	bool isCollidingWithBrick(brick *brick);
 	bool isCollidingWithCake(cake *cake);
-	void multispeed();
-	
+	void multispeed(int x);
+	int powerspeed;
 	
 
 };
