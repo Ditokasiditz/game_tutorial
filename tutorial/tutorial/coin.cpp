@@ -32,3 +32,9 @@ void coin::animation()
 		animationFrame = 0;
 	}
 }
+
+
+void coin::setscale(float x, float y)
+{
+	sprite.setScale(x, y);
+}

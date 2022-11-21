@@ -30,7 +30,7 @@ void felix::move()
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
 	{
 		turnleft = true;
-		if ((263 < position.y && position.y < 281) || (417 < position.y && position.y < 435) || (570 < position.y))
+		if ((263 < position.y && position.y < 281) || (417 < position.y && position.y < 435) || (573 < position.y))
 		{
 			sprite.move(-speed, 0.00);
 		}
@@ -57,7 +57,7 @@ void felix::move()
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
 	{
 		turnright = true;
-		if ( (263<position.y && position.y<281) || (417 < position.y && position.y < 435) || (570 < position.y) )
+		if ( (263<position.y && position.y<281) || (417 < position.y && position.y < 435) || (573 < position.y) )
 		{
 			sprite.move(speed, 0.00);
 		}

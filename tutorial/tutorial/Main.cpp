@@ -33,10 +33,21 @@ int main()
 
 	sf::Text starttext("start", menufont,120);
 	starttext.setPosition(80, 100);
-	starttext.setStyle(0);
+	
 	sf::Text exittext("exit", menufont, 80);
 	exittext.setPosition(80, 250);
-	exittext.setStyle(0);
+	
+	sf::Text gamtitletext("felix    need    coin", menufont, 50);
+	gamtitletext.setPosition(80, 45);
+	gamtitletext.setStyle(4);
+	gamtitletext.setFillColor(sf::Color(0,200,220,255));
+
+	sf::Text introtext("press      A   s   w   d       to       move", menufont, 30);
+	introtext.setPosition(80, 600);
+	
+	coin coinlogo;
+	coinlogo.setposition(500,240);
+	coinlogo.setscale(20, 20);
 
 
 	//for gamestate 1
@@ -150,7 +161,7 @@ int main()
 	brick brick[2];
 	for (int i = 0; i < 2; i++)
 	{
-		brick[i].setposition(190, 80);
+		brick[i].setposition(190, 70);
 		brickVec.push_back(&brick[i]);
 	}
 	
@@ -185,7 +196,7 @@ int main()
 	arial.loadFromFile("ARCADECLASSIC.ttf");
 
 	std::ostringstream ssScore;
-	ssScore << "Score: " << score;
+	ssScore << "Score:   " << score;
 
 	sf::Text lblScore;
 	lblScore.setCharacterSize(30);
@@ -199,7 +210,7 @@ int main()
 	int lifechance = 5;
 
 	std::ostringstream sslife;
-	sslife << "Lifes   " << lifechance;
+	sslife << "Lifes     " << lifechance;
 
 	sf::Text lbllife;
 	lbllife.setCharacterSize(30);
@@ -210,17 +221,29 @@ int main()
 
 
 	//timer
-	double msec100, msec50, msec25, msec125, msec2200,sec5, sec6,sec56;
-	sf::Clock  clock100msec, clock50msec, clock25msec, clock125msec, clock2200msec, clock5sec, clock6sec, clock56sec;
-	sf::Time time1sec, time100msec, time50msec, time25msec, time125msec, time2200msec, time5sec, time6sec, time56sec;
+	double msec100, msec50, msec25, msec125, msec150, msec2200,sec5, sec6,sec56;
+	sf::Clock  clock100msec, clock50msec, clock25msec, clock125msec, clock150msec, clock2200msec, clock5sec, clock6sec, clock56sec;
+	sf::Time time1sec, time100msec, time50msec, time25msec, time125msec, time150msec, time2200msec, time5sec, time6sec, time56sec;
 	clock100msec.restart();
 	clock50msec.restart();
 	clock25msec.restart();
 	clock125msec.restart();
+	clock150msec.restart();
+
 	clock2200msec.restart();
 	clock5sec.restart();
 	clock6sec.restart();
 	clock56sec.restart();
+
+
+	//game state 2   game over
+	sf::Text gameovertext("game     over", menufont, 80);
+	gameovertext.setPosition(250, 200);
+
+	sf::Text menutext("menu", menufont, 80);
+	menutext.setPosition(350, 550);
+	
+
 
 	//game event 
 	while (window.isOpen())
@@ -268,12 +291,24 @@ int main()
 			}
 
 			window.clear();
+			time150msec = clock150msec.getElapsedTime();
+			msec150 = time150msec.asMilliseconds();
+
+			if (msec150 > 150) {
+				coinlogo.animation();
+				clock150msec.restart();
+			}
+				
+			window.draw(introtext);
 			window.draw(starttext);
 			window.draw(exittext);
+			window.draw(gamtitletext);
+			coinlogo.draw(window);
+
 			window.display();
 
 		}
-		while (gamestate==1)  //isplaying
+		while (gamestate == 1)  //isplaying
 		{
 			felix.reset_movestate();
 
@@ -346,11 +381,11 @@ int main()
 					{
 						themesong.pause();
 						diesound.play();
-						gamestate = 0;
+						gamestate = 2;
 						break;
 					}
 					else
-						hurtsound.play();
+					hurtsound.play();
 					sslife.str("");
 					sslife << "Lifes " << lifechance;
 					lbllife.setString(sslife.str());
@@ -393,6 +428,7 @@ int main()
 				now_brick = 2;
 				brick[1].speed = brick[0].speed;
 			}
+
 			//spawn cake
 			if (sec6 >= 6 && sec56 < 56)
 			{
@@ -408,7 +444,7 @@ int main()
 				if (brick[i].getY() >= 760)
 				{
 					int newx_brick = random_between(150, 724);
-					brick[i].setposition(newx_brick, 80);
+					brick[i].setposition(newx_brick, 70);
 				}
 			}
 
@@ -462,6 +498,48 @@ int main()
 
 			window.display();
 		}
+		while (gamestate == 2) 
+		{
+			sf::Text showscore(ssScore.str(), menufont, 40);
+			showscore.setPosition(350, 300);
+
+			sf::Event evn;
+			while (window.pollEvent(evn))
+			{
+				if (evn.type == sf::Event::Closed)
+					window.close();
+			}
+
+			//mouse touch
+			if (menutext.getGlobalBounds().contains(sf::Mouse::getPosition(window).x, sf::Mouse::getPosition(window).y))
+			{
+				menutext.setFillColor(sf::Color::Red);
+				menutext.setScale(1.2, 1.2);
+			}
+			else
+			{
+				menutext.setFillColor(sf::Color::White);
+				menutext.setScale(1, 1);
+			}
+			//mouse click
+			if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
+			{
+				if (menutext.getGlobalBounds().contains(sf::Mouse::getPosition(window).x, sf::Mouse::getPosition(window).y))
+				{
+					gamestate = 0;
+					break;
+				}
+			}
+			
+			window.clear();
+
+			window.draw(showscore);
+			window.draw(gameovertext);
+			window.draw(menutext);
+
+			window.display();
+		}
+
 	}
 
 	return 0;

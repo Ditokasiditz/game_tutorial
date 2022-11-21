@@ -14,7 +14,7 @@ public:
 	void setposition(int x, int y);
 	int animationFrame = 0;
 	void animation();
-	
+	void setscale(float x, float y);
 	sf::FloatRect getGlobalBounds() 
 	{
 		return sprite.getGlobalBounds();
