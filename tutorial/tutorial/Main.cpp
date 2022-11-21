@@ -26,6 +26,20 @@ int main()
 	sf::RenderWindow window(sf::VideoMode(900, 700), "fixed it felix game");
 	srand(time(NULL));
 
+	//for gamestate 0
+	
+	sf::Font menufont;
+	menufont.loadFromFile("ARCADECLASSIC.ttf");
+
+	sf::Text starttext("start", menufont,120);
+	starttext.setPosition(80, 100);
+	starttext.setStyle(0);
+	sf::Text exittext("exit", menufont, 80);
+	exittext.setPosition(80, 250);
+	exittext.setStyle(0);
+
+
+	//for gamestate 1
 	//sound 
 	sf::SoundBuffer game;
 	game.loadFromFile("./sound/01 Running About.flac");
@@ -211,190 +225,243 @@ int main()
 	//game event 
 	while (window.isOpen())
 	{
-		felix.reset_movestate();
-
-		felix.multispeed(felix.powerspeed);
-
-		//cake logic
-		for (int i = 0; i < cakeVec.size(); i++) {
-			if (felix.isCollidingWithCake(cakeVec[i])) {
-				cakesound.play();
-				cakeVec[i]->setposition(45555, 45555);
-				felix.powerspeed++;
-			}
-		}
-
-
-		sf::Event event;
-		while (window.pollEvent(event))
+		while (gamestate == 0)
 		{
-			if (event.type == sf::Event::Closed)
-				window.close();
-			if (event.type == sf::Event::MouseMoved)
+			sf::Event ev;
+			while (window.pollEvent(ev))
 			{
-				int xxx = event.mouseMove.x;int yyy = event.mouseMove.y;
-				printf("(%d,%d)",xxx,yyy);
+				if (ev.type == sf::Event::Closed)
+					window.close();
 			}
-		}
 
-		for(int i=0;i<now_brick;i++)
-			brick[i].falldown();
-		felix.move();
-
-		
-		//coin come back
-		if (score % 270 == 0)
-		{
-			int x_coin = 200;
-			int y_coin = 290;
-			for (int i = 0; i < maxcoin; i++)
+			if (starttext.getGlobalBounds().contains(sf::Mouse::getPosition(window).x, sf::Mouse::getPosition(window).y))
 			{
-				coinVec.push_back(&coin[i]);
-				coin[i].setposition(x_coin, y_coin);
-				x_coin = x_coin + 60;
-				if (x_coin > 715)
+				starttext.setFillColor(sf::Color::Red);
+				starttext.setScale(1.2, 1.2);
+			}
+			else if (exittext.getGlobalBounds().contains(sf::Mouse::getPosition(window).x, sf::Mouse::getPosition(window).y))
+			{
+				exittext.setFillColor(sf::Color::Red);
+				exittext.setScale(1.2, 1.2);
+			}
+			else
+			{
+				starttext.setFillColor(sf::Color::White);
+				starttext.setScale(1, 1);
+				exittext.setFillColor(sf::Color::White);
+				exittext.setScale(1, 1);
+			}
+
+
+			if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
+			{
+				if (starttext.getGlobalBounds().contains(sf::Mouse::getPosition(window).x, sf::Mouse::getPosition(window).y))
 				{
-					x_coin = 200;
-					y_coin = y_coin + 155;
+					gamestate = 1;
+					break;
+				}
+				else if (exittext.getGlobalBounds().contains(sf::Mouse::getPosition(window).x, sf::Mouse::getPosition(window).y))
+				{
+					themesong.stop();
+					window.close();
 				}
 			}
-		}
 
-		//coin collect logic
-		for (int i = 0; i < coinVec.size(); i++) {
-			if (felix.isCollidingWithCoin(coinVec[i])) {
-				coinsound.play();
-				coinVec[i]->setposition(422234, 423432);
-				score+=10;
-				ssScore.str("");
-				ssScore << "Score " << score;
-				lblScore.setString(ssScore.str());
-			}
-		}
-		
+			window.clear();
+			window.draw(starttext);
+			window.draw(exittext);
+			window.display();
 
-		//brick logic
-		for (int i = 0; i < brickVec.size(); i++) {
-			if (felix.isCollidingWithBrick(brickVec[i])) {
-				brickVec[i]->setposition(45555,brick[i].getY()+50);
-				lifechance--;
-				if (lifechance == 0)
-				{
-					themesong.pause();
-					diesound.play();
+		}
+		while (gamestate==1)  //isplaying
+		{
+			felix.reset_movestate();
+
+			felix.multispeed(felix.powerspeed);
+
+			//cake logic
+			for (int i = 0; i < cakeVec.size(); i++) {
+				if (felix.isCollidingWithCake(cakeVec[i])) {
+					cakesound.play();
+					cakeVec[i]->setposition(45555, 45555);
+					felix.powerspeed++;
 				}
-				else
-					hurtsound.play();
-				sslife.str("");
-				sslife << "Lifes " << lifechance;
-				lbllife.setString(sslife.str());
 			}
-		}
 
 
-		
-
-
-
-		window.clear();
-
-
-		//time update
-		time100msec = clock100msec.getElapsedTime();
-		time125msec = clock125msec.getElapsedTime();
-		time2200msec = clock2200msec.getElapsedTime();
-		time5sec = clock5sec.getElapsedTime();
-		time6sec = clock6sec.getElapsedTime();
-		time56sec = clock56sec.getElapsedTime();
-
-		msec100 = time100msec.asMilliseconds();
-		msec125 = time125msec.asMilliseconds();
-		msec2200 = time2200msec.asMilliseconds();
-		sec5 = time5sec.asSeconds();
-		sec6 = time6sec.asSeconds();
-		sec56 = time56sec.asSeconds();
-
-
-		//level update
-		//++brick speed
-		if (sec5 >= 5 && sec56 < 67)
-		{
-			brick[0].speed = brick[0].speed * 1.08;
-			clock5sec.restart();
-		}
-		else if(sec56 > 68)
-		{
-			now_brick = 2;
-			brick[1].speed = brick[0].speed;
-		}
-		//spawn cake
-		if (sec6 >= 6 && sec56 < 56)
-		{
-			int newx_cake = random_between(160, 704);
-			int newy_cake = cake_posy[random_between(0, 2)];
-			cake.setposition(newx_cake, newy_cake);
-			clock6sec.restart();
-		}
-
-
-		//reset posx brick
-		for (int i = 0; i < now_brick; i++) {
-			if (brick[i].getY() >= 760)
+			sf::Event event;
+			while (window.pollEvent(event))
 			{
-				int newx_brick = random_between(150, 724);
-				brick[i].setposition(newx_brick, 80);
+				if (event.type == sf::Event::Closed)
+					window.close();
+				if (event.type == sf::Event::MouseMoved)
+				{
+					int xxx = event.mouseMove.x; int yyy = event.mouseMove.y;
+					printf("(%d,%d)", xxx, yyy);
+				}
 			}
-		}
-		
-		//coin&cake animation 
-		if (msec125 > 125)
-		{
-			cake.animation();
+
+			for (int i = 0; i < now_brick; i++)
+				brick[i].falldown();
+			felix.move();
+
+
+			//coin come back
+			if (score % 270 == 0)
+			{
+				int x_coin = 200;
+				int y_coin = 290;
+				for (int i = 0; i < maxcoin; i++)
+				{
+					coinVec.push_back(&coin[i]);
+					coin[i].setposition(x_coin, y_coin);
+					x_coin = x_coin + 60;
+					if (x_coin > 715)
+					{
+						x_coin = 200;
+						y_coin = y_coin + 155;
+					}
+				}
+			}
+
+			//coin collect logic
+			for (int i = 0; i < coinVec.size(); i++) {
+				if (felix.isCollidingWithCoin(coinVec[i])) {
+					coinsound.play();
+					coinVec[i]->setposition(422234, 423432);
+					score += 10;
+					ssScore.str("");
+					ssScore << "Score " << score;
+					lblScore.setString(ssScore.str());
+				}
+			}
+
+
+			//brick logic
+			for (int i = 0; i < brickVec.size(); i++) {
+				if (felix.isCollidingWithBrick(brickVec[i])) {
+					brickVec[i]->setposition(45555, brick[i].getY() + 50);
+					lifechance--;
+					if (lifechance == 0)
+					{
+						themesong.pause();
+						diesound.play();
+						gamestate = 0;
+						break;
+					}
+					else
+						hurtsound.play();
+					sslife.str("");
+					sslife << "Lifes " << lifechance;
+					lbllife.setString(sslife.str());
+				}
+			}
+
+
+
+
+
+
+			window.clear();
+
+
+			//time update
+			time100msec = clock100msec.getElapsedTime();
+			time125msec = clock125msec.getElapsedTime();
+			time2200msec = clock2200msec.getElapsedTime();
+			time5sec = clock5sec.getElapsedTime();
+			time6sec = clock6sec.getElapsedTime();
+			time56sec = clock56sec.getElapsedTime();
+
+			msec100 = time100msec.asMilliseconds();
+			msec125 = time125msec.asMilliseconds();
+			msec2200 = time2200msec.asMilliseconds();
+			sec5 = time5sec.asSeconds();
+			sec6 = time6sec.asSeconds();
+			sec56 = time56sec.asSeconds();
+
+
+			//level update
+			//++brick speed
+			if (sec5 >= 5 && sec56 < 67)
+			{
+				brick[0].speed = brick[0].speed * 1.08;
+				clock5sec.restart();
+			}
+			else if (sec56 > 68)
+			{
+				now_brick = 2;
+				brick[1].speed = brick[0].speed;
+			}
+			//spawn cake
+			if (sec6 >= 6 && sec56 < 56)
+			{
+				int newx_cake = random_between(160, 704);
+				int newy_cake = cake_posy[random_between(0, 2)];
+				cake.setposition(newx_cake, newy_cake);
+				clock6sec.restart();
+			}
+
+
+			//reset posx brick
+			for (int i = 0; i < now_brick; i++) {
+				if (brick[i].getY() >= 760)
+				{
+					int newx_brick = random_between(150, 724);
+					brick[i].setposition(newx_brick, 80);
+				}
+			}
+
+			//coin&cake animation 
+			if (msec125 > 125)
+			{
+				cake.animation();
+				for (int i = 0; i < maxcoin; i++)
+				{
+					coin[i].animation();
+					clock125msec.restart();
+				}
+			}
+
+			//felix animation
+			if (msec100 > 100)
+			{
+				felix.animation();
+				clock100msec.restart();
+			}
+
+
+
+			//window draw
+			window.draw(longbush);
+
+			building.draw(window);
+
+			for (int i = 0; i < 3; i++)
+				window.draw(floor[i]);
+
+			for (int i = 0; i < 5; i++)
+				window.draw(greenwin[i]);
+
+			for (int i = 0; i < maxwin; i++)
+				fixedwin[i].draw(window);
+
 			for (int i = 0; i < maxcoin; i++)
-			{
-				coin[i].animation();
-				clock125msec.restart();
-			}
+				coin[i].draw(window);
+
+			window.draw(lblScore);
+
+			window.draw(lbllife);
+
+			felix.draw(window); ///draw sprite
+
+			cake.draw(window);
+
+			for (int i = 0; i < now_brick; i++)
+				brick[i].draw(window);
+
+			window.display();
 		}
-
-		//felix animation
-		if (msec100 > 100)
-		{
-			felix.animation();
-			clock100msec.restart();
-		}
-
-
-
-		//window draw
-		window.draw(longbush);
-
-		building.draw(window);
-
-		for (int i = 0; i < 3; i++)
-			window.draw(floor[i]);
-
-		for (int i = 0; i < 5; i++)
-			window.draw(greenwin[i]);
-
-		for (int i = 0; i < maxwin; i++)
-			fixedwin[i].draw(window);
-
-		for (int i = 0; i < maxcoin; i++)
-			coin[i].draw(window);
-
-		window.draw(lblScore);
-
-		window.draw(lbllife);
-
-		felix.draw(window); ///draw sprite
-
-		cake.draw(window);
-
-		for(int i=0;i<now_brick;i++)
-			brick[i].draw(window);
-
-		window.display();
 	}
 
 	return 0;
