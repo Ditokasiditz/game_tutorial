@@ -8,6 +8,8 @@
 #include "coin.h"
 #include "brick.h"
 #include "cake.h"
+#include "scorboard.h"
+#include "textbox.h"
 
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
@@ -27,6 +29,8 @@ int main()
 	srand(time(NULL));
 
 	//for gamestate 0
+
+	
 	
 	sf::Font menufont;
 	menufont.loadFromFile("ARCADECLASSIC.ttf");
@@ -35,7 +39,7 @@ int main()
 	starttext.setPosition(80, 100);
 	
 	sf::Text exittext("exit", menufont, 80);
-	exittext.setPosition(80, 250);
+	exittext.setPosition(80, 340);
 	
 	sf::Text gamtitletext("felix    need    coin", menufont, 50);
 	gamtitletext.setPosition(80, 45);
@@ -44,7 +48,13 @@ int main()
 
 	sf::Text introtext("press      A   s   w   d       to       move", menufont, 30);
 	introtext.setPosition(80, 600);
-	
+
+	sf::Text kasidittext("65010054    kasidit     samad", menufont, 30);
+	kasidittext.setPosition(80, 635);
+
+	sf::Text scoreboardtext("score  board", menufont, 70);
+	scoreboardtext.setPosition(80, 250);
+
 	coin coinlogo;
 	coinlogo.setposition(500,240);
 	coinlogo.setscale(20, 20);
@@ -158,8 +168,8 @@ int main()
 	//brick object
 	std::vector<brick*> brickVec;
 
-	brick brick[2];
-	for (int i = 0; i < 2; i++)
+	brick brick[3];
+	for (int i = 0; i < 3; i++)
 	{
 		brick[i].setposition(190, 70);
 		brickVec.push_back(&brick[i]);
@@ -238,11 +248,16 @@ int main()
 
 	//game state 2   game over
 	sf::Text gameovertext("game     over", menufont, 80);
-	gameovertext.setPosition(250, 200);
+	gameovertext.setPosition(250, 25);
 
 	sf::Text menutext("menu", menufont, 80);
 	menutext.setPosition(350, 550);
-	
+
+	scoreboard scoreboard;
+
+	//game stet 4 pause
+	sf::Text continuetext("continue", menufont, 100);
+	continuetext.setPosition(210, 250);
 
 
 	//game event 
@@ -250,6 +265,9 @@ int main()
 	{
 		while (gamestate == 0)
 		{
+			lifechance = 5;//reset lifechance
+			score = 0; //reset score
+
 			sf::Event ev;
 			while (window.pollEvent(ev))
 			{
@@ -267,12 +285,19 @@ int main()
 				exittext.setFillColor(sf::Color::Red);
 				exittext.setScale(1.2, 1.2);
 			}
+			else if (scoreboardtext.getGlobalBounds().contains(sf::Mouse::getPosition(window).x, sf::Mouse::getPosition(window).y))
+			{
+				scoreboardtext.setFillColor(sf::Color::Red);
+				scoreboardtext.setScale(1.2, 1.2);
+			}
 			else
 			{
 				starttext.setFillColor(sf::Color::White);
 				starttext.setScale(1, 1);
 				exittext.setFillColor(sf::Color::White);
 				exittext.setScale(1, 1);
+				scoreboardtext.setFillColor(sf::Color::White);
+				scoreboardtext.setScale(1, 1);
 			}
 
 
@@ -288,13 +313,18 @@ int main()
 					themesong.stop();
 					window.close();
 				}
+				else if (scoreboardtext.getGlobalBounds().contains(sf::Mouse::getPosition(window).x, sf::Mouse::getPosition(window).y))
+				{
+					gamestate = 3;
+					break;
+				}
 			}
 
 			window.clear();
 			time150msec = clock150msec.getElapsedTime();
 			msec150 = time150msec.asMilliseconds();
 
-			if (msec150 > 150) {
+			if (msec150 > 150) { 
 				coinlogo.animation();
 				clock150msec.restart();
 			}
@@ -303,6 +333,8 @@ int main()
 			window.draw(starttext);
 			window.draw(exittext);
 			window.draw(gamtitletext);
+			window.draw(kasidittext);
+			window.draw(scoreboardtext);
 			coinlogo.draw(window);
 
 			window.display();
@@ -332,14 +364,26 @@ int main()
 				if (event.type == sf::Event::MouseMoved)
 				{
 					int xxx = event.mouseMove.x; int yyy = event.mouseMove.y;
-					printf("(%d,%d)", xxx, yyy);
+					//printf("(%d,%d)", xxx, yyy);
 				}
 			}
 
 			for (int i = 0; i < now_brick; i++)
 				brick[i].falldown();
+			
 			felix.move();
 
+			//prees to skip play
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Y))
+			{
+				lifechance = 0;
+			}
+
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::P))
+			{
+				gamestate = 4;
+				break;
+			}
 
 			//coin come back
 			if (score % 270 == 0)
@@ -371,20 +415,13 @@ int main()
 				}
 			}
 
-
+			
 			//brick logic
 			for (int i = 0; i < brickVec.size(); i++) {
 				if (felix.isCollidingWithBrick(brickVec[i])) {
 					brickVec[i]->setposition(45555, brick[i].getY() + 50);
 					lifechance--;
-					if (lifechance == 0)
-					{
-						themesong.pause();
-						diesound.play();
-						gamestate = 2;
-						break;
-					}
-					else
+					
 					hurtsound.play();
 					sslife.str("");
 					sslife << "Lifes " << lifechance;
@@ -393,13 +430,22 @@ int main()
 			}
 
 
+			if (lifechance == 0)
+			{
+				themesong.pause();
+				diesound.play();
+				gamestate = 2;
+			}
+			
+
+
 
 
 
 
 			window.clear();
 
-
+			
 			//time update
 			time100msec = clock100msec.getElapsedTime();
 			time125msec = clock125msec.getElapsedTime();
@@ -423,12 +469,16 @@ int main()
 				brick[0].speed = brick[0].speed * 1.08;
 				clock5sec.restart();
 			}
-			else if (sec56 > 68)
+			else if (sec56 > 65)
 			{
 				now_brick = 2;
 				brick[1].speed = brick[0].speed;
 			}
-
+			else if (sec56 > 85)
+			{
+				now_brick = 3;
+				brick[2].speed = brick[0].speed;
+			}
 			//spawn cake
 			if (sec6 >= 6 && sec56 < 56)
 			{
@@ -500,14 +550,25 @@ int main()
 		}
 		while (gamestate == 2) 
 		{
+
+			//sf::Text showscore(ssScore.str(), menufont, 40);
+			//showscore.setPosition(350, 300);
+
+
+			TextBox textbox(60, sf::Color::Color(0, 204, 255, 255), true, 400, 500);
+			textbox.setLimit(true, 13);
+
+
 			sf::Text showscore(ssScore.str(), menufont, 40);
 			showscore.setPosition(350, 300);
+
 
 			sf::Event evn;
 			while (window.pollEvent(evn))
 			{
 				if (evn.type == sf::Event::Closed)
 					window.close();
+				
 			}
 
 			//mouse touch
@@ -530,14 +591,80 @@ int main()
 					break;
 				}
 			}
-			
+
+
+
 			window.clear();
 
+			textbox.draw(window);
 			window.draw(showscore);
 			window.draw(gameovertext);
 			window.draw(menutext);
 
 			window.display();
+		}
+		while (gamestate == 3)
+		{
+			//touch menu
+			if (menutext.getGlobalBounds().contains(sf::Mouse::getPosition(window).x, sf::Mouse::getPosition(window).y))
+			{
+				menutext.setFillColor(sf::Color::Red);
+				menutext.setScale(1.2, 1.2);
+			}
+			else
+			{
+				menutext.setFillColor(sf::Color::White);
+				menutext.setScale(1, 1);
+			}
+
+			//click menu
+			if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
+			{
+				if (menutext.getGlobalBounds().contains(sf::Mouse::getPosition(window).x, sf::Mouse::getPosition(window).y))
+				{
+					gamestate = 0;
+					break;
+				}
+			}
+
+			window.clear();
+
+			scoreboard.showscore(window);
+			window.draw(menutext);
+			
+			window.display();
+
+		}
+		while (gamestate == 4)
+		{
+			if (continuetext.getGlobalBounds().contains(sf::Mouse::getPosition(window).x, sf::Mouse::getPosition(window).y))
+			{
+				continuetext.setFillColor(sf::Color(0, 200, 220, 255));
+				continuetext.setScale(1.2, 1.2);
+			}
+			else
+			{
+				continuetext.setFillColor(sf::Color::White);
+				continuetext.setScale(1, 1);
+			}
+
+			//click menu
+			if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
+			{
+				if (continuetext.getGlobalBounds().contains(sf::Mouse::getPosition(window).x, sf::Mouse::getPosition(window).y))
+				{
+					gamestate = 1;
+					break;
+				}
+			}
+
+			window.clear();
+
+			window.draw(continuetext);
+
+			window.display();
+			
+
 		}
 
 	}

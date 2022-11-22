@@ -39,6 +39,12 @@
     <ClCompile Include="cake.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="scorboard.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Textbox.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="felix.h">
@@ -57,6 +63,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="cake.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="scorboard.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Textbox.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
