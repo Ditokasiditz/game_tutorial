@@ -4,13 +4,13 @@ c:\users\user\desktop\game_tutorial\tutorial\tutorial\scorboard.h(76): warning C
 c:\users\user\desktop\game_tutorial\tutorial\tutorial\textbox.h(37): warning C4018: '<': signed/unsigned mismatch
 c:\users\user\desktop\game_tutorial\tutorial\tutorial\textbox.h(62): warning C4018: '<=': signed/unsigned mismatch
 c:\users\user\desktop\game_tutorial\tutorial\tutorial\textbox.h(65): warning C4018: '>': signed/unsigned mismatch
-c:\users\user\desktop\game_tutorial\tutorial\tutorial\textbox.h(112): warning C4018: '<': signed/unsigned mismatch
-c:\users\user\desktop\game_tutorial\tutorial\tutorial\main.cpp(29): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
-c:\users\user\desktop\game_tutorial\tutorial\tutorial\main.cpp(107): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-c:\users\user\desktop\game_tutorial\tutorial\tutorial\main.cpp(108): warning C4305: 'argument': truncation from 'double' to 'float'
-c:\users\user\desktop\game_tutorial\tutorial\tutorial\main.cpp(132): warning C4305: 'argument': truncation from 'double' to 'float'
-c:\users\user\desktop\game_tutorial\tutorial\tutorial\main.cpp(133): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-c:\users\user\desktop\game_tutorial\tutorial\tutorial\main.cpp(278): warning C4244: 'argument': conversion from 'T' to 'T', possible loss of data
+c:\users\user\desktop\game_tutorial\tutorial\tutorial\textbox.h(111): warning C4018: '<': signed/unsigned mismatch
+c:\users\user\desktop\game_tutorial\tutorial\tutorial\main.cpp(31): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+c:\users\user\desktop\game_tutorial\tutorial\tutorial\main.cpp(110): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+c:\users\user\desktop\game_tutorial\tutorial\tutorial\main.cpp(111): warning C4305: 'argument': truncation from 'double' to 'float'
+c:\users\user\desktop\game_tutorial\tutorial\tutorial\main.cpp(135): warning C4305: 'argument': truncation from 'double' to 'float'
+c:\users\user\desktop\game_tutorial\tutorial\tutorial\main.cpp(136): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+c:\users\user\desktop\game_tutorial\tutorial\tutorial\main.cpp(302): warning C4244: 'argument': conversion from 'T' to 'T', possible loss of data
           with
           [
               T=int
@@ -19,8 +19,8 @@ c:\users\user\desktop\game_tutorial\tutorial\tutorial\main.cpp(278): warning C42
           [
               T=float
           ]
-c:\users\user\desktop\game_tutorial\tutorial\tutorial\main.cpp(281): warning C4305: 'argument': truncation from 'double' to 'float'
-c:\users\user\desktop\game_tutorial\tutorial\tutorial\main.cpp(283): warning C4244: 'argument': conversion from 'T' to 'T', possible loss of data
+c:\users\user\desktop\game_tutorial\tutorial\tutorial\main.cpp(304): warning C4305: 'argument': truncation from 'double' to 'float'
+c:\users\user\desktop\game_tutorial\tutorial\tutorial\main.cpp(307): warning C4244: 'argument': conversion from 'T' to 'T', possible loss of data
           with
           [
               T=int
@@ -29,8 +29,8 @@ c:\users\user\desktop\game_tutorial\tutorial\tutorial\main.cpp(283): warning C42
           [
               T=float
           ]
-c:\users\user\desktop\game_tutorial\tutorial\tutorial\main.cpp(286): warning C4305: 'argument': truncation from 'double' to 'float'
-c:\users\user\desktop\game_tutorial\tutorial\tutorial\main.cpp(288): warning C4244: 'argument': conversion from 'T' to 'T', possible loss of data
+c:\users\user\desktop\game_tutorial\tutorial\tutorial\main.cpp(310): warning C4305: 'argument': truncation from 'double' to 'float'
+c:\users\user\desktop\game_tutorial\tutorial\tutorial\main.cpp(312): warning C4244: 'argument': conversion from 'T' to 'T', possible loss of data
           with
           [
               T=int
@@ -39,8 +39,8 @@ c:\users\user\desktop\game_tutorial\tutorial\tutorial\main.cpp(288): warning C42
           [
               T=float
           ]
-c:\users\user\desktop\game_tutorial\tutorial\tutorial\main.cpp(291): warning C4305: 'argument': truncation from 'double' to 'float'
-c:\users\user\desktop\game_tutorial\tutorial\tutorial\main.cpp(306): warning C4244: 'argument': conversion from 'T' to 'T', possible loss of data
+c:\users\user\desktop\game_tutorial\tutorial\tutorial\main.cpp(315): warning C4305: 'argument': truncation from 'double' to 'float'
+c:\users\user\desktop\game_tutorial\tutorial\tutorial\main.cpp(330): warning C4244: 'argument': conversion from 'T' to 'T', possible loss of data
           with
           [
               T=int
@@ -49,7 +49,7 @@ c:\users\user\desktop\game_tutorial\tutorial\tutorial\main.cpp(306): warning C42
           [
               T=float
           ]
-c:\users\user\desktop\game_tutorial\tutorial\tutorial\main.cpp(311): warning C4244: 'argument': conversion from 'T' to 'T', possible loss of data
+c:\users\user\desktop\game_tutorial\tutorial\tutorial\main.cpp(335): warning C4244: 'argument': conversion from 'T' to 'T', possible loss of data
           with
           [
               T=int
@@ -58,7 +58,7 @@ c:\users\user\desktop\game_tutorial\tutorial\tutorial\main.cpp(311): warning C42
           [
               T=float
           ]
-c:\users\user\desktop\game_tutorial\tutorial\tutorial\main.cpp(316): warning C4244: 'argument': conversion from 'T' to 'T', possible loss of data
+c:\users\user\desktop\game_tutorial\tutorial\tutorial\main.cpp(340): warning C4244: 'argument': conversion from 'T' to 'T', possible loss of data
           with
           [
               T=int
@@ -67,11 +67,11 @@ c:\users\user\desktop\game_tutorial\tutorial\tutorial\main.cpp(316): warning C42
           [
               T=float
           ]
-c:\users\user\desktop\game_tutorial\tutorial\tutorial\main.cpp(350): warning C4018: '<': signed/unsigned mismatch
-c:\users\user\desktop\game_tutorial\tutorial\tutorial\main.cpp(407): warning C4018: '<': signed/unsigned mismatch
-c:\users\user\desktop\game_tutorial\tutorial\tutorial\main.cpp(420): warning C4018: '<': signed/unsigned mismatch
-c:\users\user\desktop\game_tutorial\tutorial\tutorial\main.cpp(469): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-c:\users\user\desktop\game_tutorial\tutorial\tutorial\main.cpp(575): warning C4244: 'argument': conversion from 'T' to 'T', possible loss of data
+c:\users\user\desktop\game_tutorial\tutorial\tutorial\main.cpp(374): warning C4018: '<': signed/unsigned mismatch
+c:\users\user\desktop\game_tutorial\tutorial\tutorial\main.cpp(431): warning C4018: '<': signed/unsigned mismatch
+c:\users\user\desktop\game_tutorial\tutorial\tutorial\main.cpp(444): warning C4018: '<': signed/unsigned mismatch
+c:\users\user\desktop\game_tutorial\tutorial\tutorial\main.cpp(493): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+c:\users\user\desktop\game_tutorial\tutorial\tutorial\main.cpp(607): warning C4244: 'argument': conversion from 'T' to 'T', possible loss of data
           with
           [
               T=int
@@ -80,8 +80,8 @@ c:\users\user\desktop\game_tutorial\tutorial\tutorial\main.cpp(575): warning C42
           [
               T=float
           ]
-c:\users\user\desktop\game_tutorial\tutorial\tutorial\main.cpp(578): warning C4305: 'argument': truncation from 'double' to 'float'
-c:\users\user\desktop\game_tutorial\tutorial\tutorial\main.cpp(588): warning C4244: 'argument': conversion from 'T' to 'T', possible loss of data
+c:\users\user\desktop\game_tutorial\tutorial\tutorial\main.cpp(610): warning C4305: 'argument': truncation from 'double' to 'float'
+c:\users\user\desktop\game_tutorial\tutorial\tutorial\main.cpp(621): warning C4244: 'argument': conversion from 'T' to 'T', possible loss of data
           with
           [
               T=int
@@ -90,45 +90,7 @@ c:\users\user\desktop\game_tutorial\tutorial\tutorial\main.cpp(588): warning C42
           [
               T=float
           ]
-c:\users\user\desktop\game_tutorial\tutorial\tutorial\main.cpp(609): warning C4244: 'argument': conversion from 'T' to 'T', possible loss of data
-          with
-          [
-              T=int
-          ]
-          and
-          [
-              T=float
-          ]
-c:\users\user\desktop\game_tutorial\tutorial\tutorial\main.cpp(612): warning C4305: 'argument': truncation from 'double' to 'float'
-c:\users\user\desktop\game_tutorial\tutorial\tutorial\main.cpp(623): warning C4244: 'argument': conversion from 'T' to 'T', possible loss of data
-          with
-          [
-              T=int
-          ]
-          and
-          [
-              T=float
-          ]
-c:\users\user\desktop\game_tutorial\tutorial\tutorial\main.cpp(640): warning C4244: 'argument': conversion from 'T' to 'T', possible loss of data
-          with
-          [
-              T=int
-          ]
-          and
-          [
-              T=float
-          ]
-c:\users\user\desktop\game_tutorial\tutorial\tutorial\main.cpp(643): warning C4305: 'argument': truncation from 'double' to 'float'
-c:\users\user\desktop\game_tutorial\tutorial\tutorial\main.cpp(654): warning C4244: 'argument': conversion from 'T' to 'T', possible loss of data
-          with
-          [
-              T=int
-          ]
-          and
-          [
-              T=float
-          ]
-c:\users\user\desktop\game_tutorial\tutorial\tutorial\main.cpp(234): warning C4101: 'msec50': unreferenced local variable
-c:\users\user\desktop\game_tutorial\tutorial\tutorial\main.cpp(234): warning C4101: 'msec25': unreferenced local variable
-c:\users\user\desktop\game_tutorial\tutorial\tutorial\main.cpp(679): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+c:\users\user\desktop\game_tutorial\tutorial\tutorial\main.cpp(237): warning C4101: 'msec50': unreferenced local variable
+c:\users\user\desktop\game_tutorial\tutorial\tutorial\main.cpp(237): warning C4101: 'msec25': unreferenced local variable
+c:\users\user\desktop\game_tutorial\tutorial\tutorial\main.cpp(668): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
   tutorial.vcxproj -> C:\Users\User\Desktop\game_tutorial\tutorial\Debug\tutorial.exe

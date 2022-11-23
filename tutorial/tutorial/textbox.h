@@ -54,7 +54,7 @@ public:
 		window.draw(textbox);
 	}
 
-	void typedOn(sf::Event input, int *screen, sf::RenderWindow &window, sf::Sprite &charec, int *scoresource) {
+	void typedOn(sf::Event input, int *screen, sf::RenderWindow &window, int *scoresource) {
 		if (isSelected) {
 			int charTyped = input.text.unicode;
 			if (charTyped < 128) {
@@ -66,10 +66,9 @@ public:
 						deleteLastChar();
 					}
 					if (charTyped == ENTER_KEY) {
-						charec.setPosition(sf::Vector2f(600, 400));
-						Enter(&text.str());
+						Enter(&text.str(), scoresource);
 						*screen = 0;
-						*scoresource = 0;
+						
 					}
 				}
 				else {
@@ -118,9 +117,10 @@ private:
 		textbox.setString(text.str());
 	}
 
-	void Enter(std::string *namesource) {
+	void Enter(std::string *namesource,int *scoresource) {
 		std::fstream  name("ScoreBoard.txt", std::ios::app);
 		if (name.is_open()) {
+			name << *scoresource << std::endl;
 			name << *namesource << std::endl;
 			name.close();
 		}

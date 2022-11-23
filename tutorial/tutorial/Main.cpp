@@ -21,17 +21,20 @@ int random_between(int min, int max);
 int cake_posy[3] = { 280,435,590 };
 int multispeed;
 int now_brick = 1;
-int gamestate = 0;  //0=menustate  1=gameplay 
+int gamestate = 0;  //0=menustate  1=gameplay   2=gameover   3=leaderboard     4=pause 
 
 int main()
 {
-	sf::RenderWindow window(sf::VideoMode(900, 700), "fixed it felix game");
+	
+
+	sf::RenderWindow window(sf::VideoMode(900, 700), "fixed need coin!!");
 	srand(time(NULL));
+
+
+	
 
 	//for gamestate 0
 
-	
-	
 	sf::Font menufont;
 	menufont.loadFromFile("ARCADECLASSIC.ttf");
 
@@ -52,7 +55,7 @@ int main()
 	sf::Text kasidittext("65010054    kasidit     samad", menufont, 30);
 	kasidittext.setPosition(80, 635);
 
-	sf::Text scoreboardtext("score  board", menufont, 70);
+	sf::Text scoreboardtext("leaderboard", menufont, 70);
 	scoreboardtext.setPosition(80, 250);
 
 	coin coinlogo;
@@ -234,30 +237,38 @@ int main()
 	double msec100, msec50, msec25, msec125, msec150, msec2200,sec5, sec6,sec56;
 	sf::Clock  clock100msec, clock50msec, clock25msec, clock125msec, clock150msec, clock2200msec, clock5sec, clock6sec, clock56sec;
 	sf::Time time1sec, time100msec, time50msec, time25msec, time125msec, time150msec, time2200msec, time5sec, time6sec, time56sec;
-	clock100msec.restart();
-	clock50msec.restart();
-	clock25msec.restart();
-	clock125msec.restart();
+	
 	clock150msec.restart();
-
-	clock2200msec.restart();
-	clock5sec.restart();
-	clock6sec.restart();
-	clock56sec.restart();
 
 
 	//game state 2   game over
-	sf::Text gameovertext("game     over", menufont, 80);
-	gameovertext.setPosition(250, 25);
+
+	TextBox textbox(60, sf::Color::Color(0, 204, 255, 255), true, 300, 389);
+	textbox.setLimit(true, 13);
+
+	sf::Text playernametext("enter     your     name", menufont, 40);
+	playernametext.setFillColor(sf::Color::Yellow);
+	playernametext.setPosition(270, 360);
+
+	sf::Text gameovertext("game     over", menufont, 100);
+	gameovertext.setFillColor(sf::Color::Yellow);
+	gameovertext.setPosition(220, 25);
 
 	sf::Text menutext("menu", menufont, 80);
 	menutext.setPosition(350, 550);
 
 	scoreboard scoreboard;
 
+
+	//game state 3 leader board 
+	sf::Text leaderboardtext("leaderboard", menufont, 100);
+	leaderboardtext.setFillColor(sf::Color(255, 140, 0, 255));
+	leaderboardtext.setPosition(160, 40);
+
 	//game stet 4 pause
-	sf::Text continuetext("continue", menufont, 100);
-	continuetext.setPosition(210, 250);
+	sf::Text continuetext("press    O     to      continue", menufont, 40);
+	continuetext.setPosition(230, 250);
+	continuetext.setFillColor(sf::Color(0, 200, 220, 255));
 
 
 	//game event 
@@ -265,6 +276,19 @@ int main()
 	{
 		while (gamestate == 0)
 		{
+			textbox.reset();
+			//restart timer
+			clock100msec.restart();
+			clock50msec.restart();
+			clock25msec.restart();
+			clock125msec.restart();
+			
+
+			clock2200msec.restart();
+			clock5sec.restart();
+			clock6sec.restart();
+			clock56sec.restart();
+
 			lifechance = 5;//reset lifechance
 			score = 0; //reset score
 
@@ -277,8 +301,8 @@ int main()
 
 			if (starttext.getGlobalBounds().contains(sf::Mouse::getPosition(window).x, sf::Mouse::getPosition(window).y))
 			{
-				starttext.setFillColor(sf::Color::Red);
 				starttext.setScale(1.2, 1.2);
+				starttext.setFillColor(sf::Color::Yellow);
 			}
 			else if (exittext.getGlobalBounds().contains(sf::Mouse::getPosition(window).x, sf::Mouse::getPosition(window).y))
 			{
@@ -287,7 +311,7 @@ int main()
 			}
 			else if (scoreboardtext.getGlobalBounds().contains(sf::Mouse::getPosition(window).x, sf::Mouse::getPosition(window).y))
 			{
-				scoreboardtext.setFillColor(sf::Color::Red);
+				scoreboardtext.setFillColor(sf::Color(255, 140, 0,255));
 				scoreboardtext.setScale(1.2, 1.2);
 			}
 			else
@@ -551,16 +575,10 @@ int main()
 		while (gamestate == 2) 
 		{
 
-			//sf::Text showscore(ssScore.str(), menufont, 40);
-			//showscore.setPosition(350, 300);
+			
 
-
-			TextBox textbox(60, sf::Color::Color(0, 204, 255, 255), true, 400, 500);
-			textbox.setLimit(true, 13);
-
-
-			sf::Text showscore(ssScore.str(), menufont, 40);
-			showscore.setPosition(350, 300);
+			sf::Text showscore(ssScore.str(), menufont, 65);
+			showscore.setPosition(300, 240);
 
 
 			sf::Event evn;
@@ -568,38 +586,18 @@ int main()
 			{
 				if (evn.type == sf::Event::Closed)
 					window.close();
-				
-			}
-
-			//mouse touch
-			if (menutext.getGlobalBounds().contains(sf::Mouse::getPosition(window).x, sf::Mouse::getPosition(window).y))
-			{
-				menutext.setFillColor(sf::Color::Red);
-				menutext.setScale(1.2, 1.2);
-			}
-			else
-			{
-				menutext.setFillColor(sf::Color::White);
-				menutext.setScale(1, 1);
-			}
-			//mouse click
-			if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
-			{
-				if (menutext.getGlobalBounds().contains(sf::Mouse::getPosition(window).x, sf::Mouse::getPosition(window).y))
-				{
-					gamestate = 0;
-					break;
+				if (evn.type == sf::Event::TextEntered) {
+					textbox.typedOn(evn, &gamestate, window,  &score);
 				}
 			}
 
 
-
 			window.clear();
 
+			window.draw(playernametext);
 			textbox.draw(window);
 			window.draw(showscore);
 			window.draw(gameovertext);
-			window.draw(menutext);
 
 			window.display();
 		}
@@ -629,6 +627,8 @@ int main()
 
 			window.clear();
 
+
+			window.draw(leaderboardtext);
 			scoreboard.showscore(window);
 			window.draw(menutext);
 			
@@ -637,26 +637,15 @@ int main()
 		}
 		while (gamestate == 4)
 		{
-			if (continuetext.getGlobalBounds().contains(sf::Mouse::getPosition(window).x, sf::Mouse::getPosition(window).y))
-			{
-				continuetext.setFillColor(sf::Color(0, 200, 220, 255));
-				continuetext.setScale(1.2, 1.2);
-			}
-			else
-			{
-				continuetext.setFillColor(sf::Color::White);
-				continuetext.setScale(1, 1);
-			}
+			
 
-			//click menu
-			if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::O))
 			{
-				if (continuetext.getGlobalBounds().contains(sf::Mouse::getPosition(window).x, sf::Mouse::getPosition(window).y))
-				{
-					gamestate = 1;
-					break;
-				}
+				gamestate = 1;
+				break;
 			}
+				
+			
 
 			window.clear();
 
