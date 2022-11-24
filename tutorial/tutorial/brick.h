@@ -24,6 +24,7 @@ public:
 		return sprite.getGlobalBounds();
 	}
 
+	void resetspeed();
 };
 
 

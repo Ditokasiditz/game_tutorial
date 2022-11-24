@@ -153,11 +153,8 @@ bool felix::isCollidingWithCake(cake *cake) {
 }
 
 
-void felix::multispeed(int x)
+void felix::multispeed()
 {
 	speed = speed * pow(1.2,powerspeed);
 }
-
-
-
 

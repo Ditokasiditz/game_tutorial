@@ -19,7 +19,6 @@ const int maxwin = 15;
 const int maxcoin = 27;
 int random_between(int min, int max);
 int cake_posy[3] = { 280,435,590 };
-int multispeed;
 int now_brick = 1;
 int gamestate = 0;  //0=menustate  1=gameplay   2=gameover   3=leaderboard     4=pause 
 
@@ -62,6 +61,12 @@ int main()
 	coinlogo.setposition(500,240);
 	coinlogo.setscale(20, 20);
 
+	sf::SoundBuffer start;
+	start.loadFromFile("./sound/03 Swimming Around.flac");
+	sf::Sound startsound;
+	startsound.setBuffer(start);
+	startsound.play();
+
 
 	//for gamestate 1
 	//sound 
@@ -82,7 +87,7 @@ int main()
 
 	sf::Sound themesong;
 	themesong.setBuffer(game);
-	themesong.play();
+	
 
 	sf::Sound coinsound;
 	coinsound.setBuffer(game2);
@@ -276,22 +281,6 @@ int main()
 	{
 		while (gamestate == 0)
 		{
-			textbox.reset();
-			//restart timer
-			clock100msec.restart();
-			clock50msec.restart();
-			clock25msec.restart();
-			clock125msec.restart();
-			
-
-			clock2200msec.restart();
-			clock5sec.restart();
-			clock6sec.restart();
-			clock56sec.restart();
-
-			lifechance = 5;//reset lifechance
-			score = 0; //reset score
-
 			sf::Event ev;
 			while (window.pollEvent(ev))
 			{
@@ -329,6 +318,26 @@ int main()
 			{
 				if (starttext.getGlobalBounds().contains(sf::Mouse::getPosition(window).x, sf::Mouse::getPosition(window).y))
 				{
+					felix.reset_movestate();
+					felix.powerspeed = 0;
+					brick[0].resetspeed();
+					//restart timer
+					clock100msec.restart();
+					clock50msec.restart();
+					clock25msec.restart();
+					clock125msec.restart();
+
+					clock2200msec.restart();
+					clock5sec.restart();
+					clock6sec.restart();
+					clock56sec.restart();
+
+					now_brick = 1;
+					lifechance = 5;//reset lifechance
+					score = 0; //reset score
+
+					startsound.stop();
+					themesong.play();
 					gamestate = 1;
 					break;
 				}
@@ -366,9 +375,10 @@ int main()
 		}
 		while (gamestate == 1)  //isplaying
 		{
+			textbox.reset();
 			felix.reset_movestate();
 
-			felix.multispeed(felix.powerspeed);
+			felix.multispeed();
 
 			//cake logic
 			for (int i = 0; i < cakeVec.size(); i++) {
@@ -445,7 +455,6 @@ int main()
 				if (felix.isCollidingWithBrick(brickVec[i])) {
 					brickVec[i]->setposition(45555, brick[i].getY() + 50);
 					lifechance--;
-					
 					hurtsound.play();
 					sslife.str("");
 					sslife << "Lifes " << lifechance;
@@ -488,17 +497,17 @@ int main()
 
 			//level update
 			//++brick speed
-			if (sec5 >= 5 && sec56 < 67)
+			if (sec5 >= 5 && sec56 < 61)
 			{
 				brick[0].speed = brick[0].speed * 1.08;
 				clock5sec.restart();
 			}
-			else if (sec56 > 65)
+			else if (sec56 > 67 && sec56 < 80)
 			{
 				now_brick = 2;
 				brick[1].speed = brick[0].speed;
 			}
-			else if (sec56 > 85)
+			else if (sec56 > 100)
 			{
 				now_brick = 3;
 				brick[2].speed = brick[0].speed;

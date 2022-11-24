@@ -36,3 +36,9 @@ int brick::getX()
 {
 	return sprite.getPosition().x;
 }
+
+
+void brick::resetspeed()
+{
+	speed = 0.44;
+}
